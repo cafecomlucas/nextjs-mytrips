@@ -413,6 +413,16 @@ Para validar se o projeto está subindo (tudo certo):
 yarn dev
 ```
 
+Subindo as alterações (primeiro commit):
+
+```sh
+git branch -M main
+git add .
+git commit -m "Inicialização do projeto"
+git remote add origin git@github.com:cafecomlucas/nextjs-mytrips.git
+git push -u origin main
+```
+
 Obs: No tutorial foi removido o storybook, que estava sendo utilizado para outro tutorial, mas nesse projeto ele não foi instalado e já não existia.
 
 ---
