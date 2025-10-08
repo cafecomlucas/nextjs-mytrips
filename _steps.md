@@ -390,3 +390,29 @@ O [next-pwa](https://github.com/shadowwalker/next-pwa) foi utilizado por conta d
 [Página do Serwist (github)](https://github.com/serwist/serwist)
 
 ---
+
+## Finalização do boilerplate
+
+O boilerplate foi finalizado e está disponível no repositório [cafecomlucas/nextjs-boilerplate](https://github.com/cafecomlucas/nextjs-boilerplate).
+
+---
+
+## Inicialização do projeto
+
+Criando um novo projeto do NextJS utilizando o boilerplate:
+
+```sh
+yarn create next-app -e https://github.com/cafecomlucas/nextjs-boilerplate
+```
+
+Foi feita uma limpeza no texto do componente `Main` e em arquivos do projeto (`styles.ts`, `test.tsx`, `test.tsx.snap` foram removidos). O título e a descrição do projeto foram atualizados (em `_document.tsx` e em `manifest.json`).
+
+Para validar se o projeto está subindo (tudo certo):
+
+```sh
+yarn dev
+```
+
+Obs: No tutorial foi removido o storybook, que estava sendo utilizado para outro tutorial, mas nesse projeto ele não foi instalado e já não existia.
+
+---
