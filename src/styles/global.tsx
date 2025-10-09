@@ -1,6 +1,18 @@
 import { css, Global } from '@emotion/react'
 
 const resetStyles = css`
+  :root {
+    --highlight: #e20e8d;
+    --background: #030518;
+    --white: #eee;
+
+    --container: 100rem;
+
+    --small: 1.5rem;
+    --medium: 3rem;
+    --large: 5rem;
+  }
+
   * {
     margin: 0;
     padding: 0;
@@ -15,6 +27,8 @@ const resetStyles = css`
   body,
   #__next {
     height: 100%;
+    background: var(--background);
+    color: var(--white);
   }
 
   body {
@@ -30,6 +44,16 @@ const resetStyles = css`
       'Open Sans',
       'Helvetica Neue',
       sans-serif;
+  }
+
+  p,
+  a {
+    font-size: 2rem;
+    line-height: var(--medium);
+  }
+
+  a {
+    color: var(--highlight);
   }
 `
 

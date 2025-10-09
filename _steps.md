@@ -426,3 +426,21 @@ git push -u origin main
 Obs: No tutorial foi removido o storybook, que estava sendo utilizado para outro tutorial, mas nesse projeto ele não foi instalado e já não existia.
 
 ---
+
+## CSS | Propriedades customizadas - variáveis
+
+Como vão existir cores e tamanhos padrões nesse projeto isso pode ser configurado utilizando variáveis do próprio CSS pra isso.
+
+No arquivo `global.tsx` as variáveis CSS foram definidas e algumas estilizações padrão já foram aplicadas nas tags `body`, `p` e `a`.
+
+Obs: Uma alternativa poderia ser o [`<ThemeProvider>` do styled-components](https://styled-components.com/docs/advanced) (se essa fosse a lib utilizada nesse projeto), mas utilizar as variáveis nativas do CSS pode ser feita sem depender da lib. 
+
+### Refs:
+
+[Variáveis CSS (MDN)](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_cascading_variables/Using_CSS_custom_properties)
+
+[Tema com Styled Components](https://styled-components.com/docs/advanced#theming)
+
+[Tema com Emotion](https://emotion.sh/docs/theming)
+
+---
