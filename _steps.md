@@ -444,3 +444,39 @@ Obs: Uma alternativa poderia ser o [`<ThemeProvider>` do styled-components](http
 [Tema com Emotion](https://emotion.sh/docs/theming)
 
 ---
+
+## Adicionando mapas interativos
+
+Para exibir mapas interativos foi utilizada a biblioteca [Leaflet](https://leafletjs.com/examples/quick-start/) junto com a biblioteca [React Leaftlet](https://react-leaflet.js.org/docs/start-installation/#using-a-package-registry) que abstrai o Leaflet para o uso de componentes. Para instalar as bibliotecas:
+
+```sh
+yarn add leaflet react-leaflet
+```
+
+Obs: As libs `react` e `react-dom` são mencionadas na DOC, mas já estão nesse projeto e não foi necessário instala-las.
+
+No arquivo `_document.tsx` foi adicionado o CSS necessário (indicado na [documentação do Leaftlet]((https://leafletjs.com/examples/quick-start/))).
+
+### Complementos de Tipagem:
+
+Para o ambiente de desenvolvimento foi adicionada a tipagem do Leaflet:
+
+```sh
+ yarn add -D @types/leaflet
+```
+
+### Componente Map | Componente com código de exemplo
+
+Foi criado o componente `Map` com o [código de exemplo](https://react-leaflet.js.org/docs/start-setup/)
+) do React Leaflet. O componente `Map` foi importado na página inicial (`pages/index.tsx`).
+
+Ao rodar o projeto ocorreu o erro "window is not defined" pois o Leaflet utiliza o objeto `window`do browser - em seguida é feito o ajuste para o mapa funcionar corretamente.
+
+### Refs: 
+[Instalação - Leaflet (DOCs)](https://leafletjs.com/examples/quick-start/)
+
+[Instalação - React Leaflet (DOCs)](https://react-leaflet.js.org/docs/start-installation/#using-a-package-registry)
+
+[Setup - Código de exemplo (React Leaflet DOCs)](https://react-leaflet.js.org/docs/start-setup/)
+
+---
