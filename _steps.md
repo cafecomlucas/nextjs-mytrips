@@ -480,3 +480,13 @@ Ao rodar o projeto ocorreu o erro "window is not defined" pois o Leaflet utiliza
 [Setup - Código de exemplo (React Leaflet DOCs)](https://react-leaflet.js.org/docs/start-setup/)
 
 ---
+
+### Componente Map | Ajuste na importação do mapa (Dynamic Imports)
+
+Para corrigir o erro "window is not defined" e o mapa abrir corretamente, na página inicial (`pages/index.tsx`) foi utilizado o [Dynamic Imports](https://nextjs.org/docs/pages/guides/lazy-loading#with-no-ssr) do Next com a config `ssr: false` - dessa forma o trecho do componente `Map` não tenta carregar no servidor e só é carregado no lado do cliente (no browser - onde o objeto `window` existe).
+
+No componente `Map` foi adicionada a estilização de `width`/`height` pro mapa poder aparecer. Além disso o zoom do mapa com scroll foi ativado setando o atrubuto do Leaftlet `scrollWheelZoom` para `true`.
+
+[Dynamic Imports (NextJS DOCs)](https://nextjs.org/docs/pages/guides/lazy-loading#with-no-ssr)
+
+---
