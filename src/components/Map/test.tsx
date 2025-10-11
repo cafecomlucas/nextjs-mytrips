@@ -12,4 +12,14 @@ describe('<Map />', () => {
       })
     ).toBeInTheDocument()
   })
+
+  it('should render with at least one marker', () => {
+    const placeOne = {
+      name: 'São Paulo'
+    }
+
+    render(<Map place={placeOne} />)
+
+    expect(screen.getByTitle(/São Paulo/i)).toBeInTheDocument()
+  })
 })

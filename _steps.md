@@ -566,3 +566,35 @@ O retorno do método `screen.getByRole` foi passado para a função `expect`, o 
 Os testes passaram.
 
 ---
+
+## Componente Map | Testes | Customização do pin (marker)
+
+Nesse momento o marcador/pin do mapa está em um lugar fixo, com a posição (latitude, longitude) no próprio componente, sem customização. Para começar a deixar o local do pin dinâmico foram feitas modificações nos testes de `Map` e no componente `Map`.
+
+Pra rodar os testes:
+
+```sh
+yarn test --watch
+```
+
+### Novo teste
+
+Foi criado um novo teste (renderizar ao menos um marcador):
+```ts
+  it('should render with at least one marker', () => {
+    ...
+```
+
+Nele foi criado um novo `render` do componente `Map`, dessa vez passando como propriedade o dado de um local (`place`) que precisa ser renderizado no mapa como um marcador/pin baseado nos dados de `place`. Aqui o teste ainda passa pois falta verificar a renderização.
+
+A renderização é verificada com o código `expect` e `screen.getByTitle` pra checar se existe um elemento com o título "São Paulo". Nesse ponto os testes mostram erro - é o momento de modificar o componente `Map` (depois do erro no teste - seguindo o princípio do TDD).
+
+### Alterações no componente
+
+No Componente `Map` foi adicionada a propriedade `place` na declaração da função, que é utilizada ao chamar o componente `Marker` passando o `place.name` como argumento pra prop "title".
+
+Neste ponto os testes passaram.
+
+Obs: O componenet `Popup` foi removido por não ser necessário.
+
+---
