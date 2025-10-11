@@ -481,12 +481,72 @@ Ao rodar o projeto ocorreu o erro "window is not defined" pois o Leaflet utiliza
 
 ---
 
-### Componente Map | Ajuste na importação do mapa (Dynamic Imports)
+## Componente Map | Ajuste na importação do mapa (Dynamic Imports)
 
 Para corrigir o erro "window is not defined" e o mapa abrir corretamente, na página inicial (`pages/index.tsx`) foi utilizado o [Dynamic Imports](https://nextjs.org/docs/pages/guides/lazy-loading#with-no-ssr) do Next com a config `ssr: false` - dessa forma o trecho do componente `Map` não tenta carregar no servidor e só é carregado no lado do cliente (no browser - onde o objeto `window` existe).
 
 No componente `Map` foi adicionada a estilização de `width`/`height` pro mapa poder aparecer. Além disso o zoom do mapa com scroll foi ativado setando o atrubuto do Leaftlet `scrollWheelZoom` para `true`.
 
 [Dynamic Imports (NextJS DOCs)](https://nextjs.org/docs/pages/guides/lazy-loading#with-no-ssr)
+
+---
+
+## Componente Map | Testes | Início da customização do mapa
+
+As modificações começam pelos testes (antes do código), assim posso ir descrevendo o que eu espero do resultado, para depois fazer o código de acordo (princípio do TDD).
+
+### Novo arquivo de teste `components/Map/test.tsx`
+
+No novo arquivo de teste foi importado o componene `Map`.
+
+#### `describe`
+
+É a primeira função chamada dentro de um teste, serve para descrever (e encapsular) para quem é o bloco de testes (mais geral). Foi descrito o nome do componente (`'<Map />'`).
+
+#### `it`
+
+Dentro do bloco do *describe* é chamado a função `it`, que serve para descrever e encapsular um bloco mais específico - os casos de teste. Dentro dele vai o código de processamento e o que se espera como resultado (Dado "alguma coisa" espero "tal" comportamento). O *it* é mais específico do que o *describe*. Pra esse it foi descrito que se espera a renderização do componente em tela (`it should render...`).
+
+#### `render`
+
+Dentro do primeiro *it* foi chamado o método `render` da lib `@testing-library/react`. Esse método serve para renderizar o conteúdo de um componente. Resta adicionar o que se a saída está de acordo com o esperado.
+
+### Executando o teste
+
+Para executar os testes e monitorar novas modificações:
+
+```sh
+yarn test --watch
+```
+
+Ao executar os testes ocorreu um erro por um conflito entre a lib do `react-leaflet` e o `jest`, que foi verificado em seguida.
+
+---
+
+## Componente Map | Testes | Ajuste na config do Jest
+
+Ao executar os testes ocorreu o seguinte erro:
+
+```tsx
+/home/cafecomlucas/projects/wjusten/nextjs/my-trips/node_modules/react-leaflet/lib/index.js:1
+export { useMap, useMapEvent, useMapEvents } from './hooks.js';
+^^^^^^
+
+SyntaxError: Unexpected token 'export'
+```
+
+De acordo com as pesquisas feitas, o erro acontece pois o `jest` por padrão não lida com a semântica dos ES Modules (import/export) que estão dentro do `node_modules`. Seria preciso definir isso explicitamente.
+
+O próprio CLI do Jest sugeriu algumas opções de solução, mas nenhuma tão específica. Foi necessário pesquisar soluções alternativas.
+
+### Tentativas de soluções
+
+- **Definir a config necessária no arquivo do Jest**: Não funcionou. Para essa config era necessário definir a prop `transformIgnorePatterns` no arquivo `jest.config.js`, com a pasta do `react-leaflet` que o Jest precisa lidar, mas está ignorando (por estar no `node_modules`).
+
+- [**Adicionar config do Jest no package.json**](https://pt.stackoverflow.com/questions/557206/react-e-leaflet-jest-encountered-an-unexpected-token/557314#557314): Não funcionou pois já existe o arquivo de config do jest (`jest.config.ts`) e nesse contexto não existe tratativa pra duas configs complementares.
+
+- [**Configurar o ts-jest pra lidar com os ESM**](https://stackoverflow.com/questions/79762452/nextjs-with-jest-unexpected-token-export/79763894#79763894): Não funcionou pois a config do Jest (prop `extensionsToTreatAsEsm`) não aceitou a extensão `.js` pra esse caso.
+
+- [**Configurar direto na chamada do Jest via CLI**](https://stackoverflow.com/questions/49263429/jest-gives-an-error-syntaxerror-unexpected-token-export/54896569#54896569): Funcionou! A config `transformIgnorePatterns` foi adicionada direto na chamada do Jest (`jest test --transformIgnorePatterns [dir]`). Então é alguma configuração interna da integração do next com o jest que ignora a propriedade `transformIgnorePatterns` setada no `jest.config.ts`.
 
 ---
