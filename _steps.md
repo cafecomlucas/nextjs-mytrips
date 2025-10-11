@@ -550,3 +550,19 @@ O próprio CLI do Jest sugeriu algumas opções de solução, mas nenhuma tão e
 - [**Configurar direto na chamada do Jest via CLI**](https://stackoverflow.com/questions/49263429/jest-gives-an-error-syntaxerror-unexpected-token-export/54896569#54896569): Funcionou! A config `transformIgnorePatterns` foi adicionada direto na chamada do Jest (`jest test --transformIgnorePatterns [dir]`). Então é alguma configuração interna da integração do next com o jest que ignora a propriedade `transformIgnorePatterns` setada no `jest.config.ts`.
 
 ---
+
+## Componente Map | Testes | Verificando se o mapa foi renderizado
+
+### screen
+
+Para verificar se o mapa foi renderizado primeiro é necessário selecionar algum elemento da renderização e checar se ele existe - pra isso, dentro do `it` foi utilizada a função `screen.logTestingPlaygroundURL()` do testing-library, que cria uma URL com um HTML real ao rodar `yarn test --watch`.
+
+Ao acessar a URL é possível ir clicando nos elementos renderizados e obter sugestões de query pra selecionar algum elemento da renderização. Uma das sugestões foi o trecho que seleciona o link de rodapé do OpenStreetMap `screen.getByRole('link', { name: /openstreetmap/i })` do testing-library, que foi utilizado a seguir.
+
+### expect
+
+O retorno do método `screen.getByRole` foi passado para a função `expect`, o retorno da função `expect` possui o método `toBeInDocument`, que verifica se o elemento (link) existe na renderização.
+
+Os testes passaram.
+
+---
