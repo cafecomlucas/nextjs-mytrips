@@ -15,7 +15,9 @@ describe('<Map />', () => {
 
   it('should render with at least one marker', () => {
     const placeOne = {
-      name: 'São Paulo'
+      name: 'São Paulo',
+      latitude: 51.505,
+      longitude: -0.09
     }
 
     render(<Map place={placeOne} />)

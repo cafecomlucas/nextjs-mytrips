@@ -606,3 +606,9 @@ O Typescript sublinhou algumas linhas no arquivo de teste e no arquivo do compon
 O componente `Map` foi alterado com a tipagem necessária.
 
 ---
+
+## Componente Map | Testes | Adicionando props de `place`
+
+Foram adicionadas as props de latitude e longitude no componente `Map` pra serem utilizados na prop `position` do `Marker`. As tipagem e os testes também foram atualizados. Nesse ponto não ocorreram erros de teste pois a latitude e a longitude não são verificados.
+
+---
