@@ -1,7 +1,14 @@
 import { MapContainer, Marker, TileLayer } from 'react-leaflet'
 import styles from './styles'
 
-const Map = ({ place }) => (
+export type Place = {
+  name: string
+}
+
+export type MapProps = {
+  place?: Place
+}
+const Map = ({ place }: MapProps) => (
   <MapContainer
     css={styles}
     center={[51.505, -0.09]}

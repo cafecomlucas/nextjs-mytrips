@@ -598,3 +598,11 @@ Neste ponto os testes passaram.
 Obs: O componenet `Popup` foi removido por não ser necessário.
 
 ---
+
+## Componente Map | Adicionando tipagem
+
+O Typescript sublinhou algumas linhas no arquivo de teste e no arquivo do componente `Map` pois a nova prop `place` pode ser indefinida ou do tipo any.
+
+O componente `Map` foi alterado com a tipagem necessária.
+
+---
