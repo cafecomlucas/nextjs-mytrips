@@ -555,7 +555,7 @@ O próprio CLI do Jest sugeriu algumas opções de solução, mas nenhuma tão e
 
 ### screen
 
-Para verificar se o mapa foi renderizado primeiro é necessário selecionar algum elemento da renderização e checar se ele existe - pra isso, dentro do `it` foi utilizada a função `screen.logTestingPlaygroundURL()` do testing-library, que cria uma URL com um HTML real ao rodar `yarn test --watch`.
+Para verificar se o mapa foi renderizado primeiro é necessário selecionar algum elemento da renderização e checar se ele existe - pra isso, dentro do `it` foi utilizada a função `screen.logTestingPlaygroundURL()` do testing-library, que cria uma URL com um HTML real ao rodar `yarn test:watch`.
 
 Ao acessar a URL é possível ir clicando nos elementos renderizados e obter sugestões de query pra selecionar algum elemento da renderização. Uma das sugestões foi o trecho que seleciona o link de rodapé do OpenStreetMap `screen.getByRole('link', { name: /openstreetmap/i })` do testing-library, que foi utilizado a seguir.
 
@@ -574,7 +574,7 @@ Nesse momento o marcador/pin do mapa está em um lugar fixo, com a posição (la
 Pra rodar os testes:
 
 ```sh
-yarn test --watch
+yarn test:watch
 ```
 
 ### Novo teste
@@ -610,5 +610,21 @@ O componente `Map` foi alterado com a tipagem necessária.
 ## Componente Map | Testes | Adicionando props de `place`
 
 Foram adicionadas as props de latitude e longitude no componente `Map` pra serem utilizados na prop `position` do `Marker`. As tipagem e os testes também foram atualizados. Nesse ponto não ocorreram erros de teste pois a latitude e a longitude não são verificados.
+
+---
+
+## Componente Map | Testes | Alterando quantidade de localizações
+
+### Novo teste
+
+Em `Map.test.tst` foi criado o teste que verifica uma nova localização (Rio de Janeiro) - que quebra em seguida, pois esse local ainda não é renderizado.
+
+A variável `placeTwo` foi criada pro segundo local. A prop `place` na chamada do componente `Map` é alterada de `place` para `places` que agora recebe dois locais em um array. Também foi feito um ajuste na `latitude`/`longitude` que agora está agrupado no objeto `places.location`.
+
+### Alterações no componente
+
+No componente `Map` a prop é modificada de `place` pra `places` e a tipagem é alterada pra receber um array. A renderização única do Marker anterior é substituída pelo método `map` do Javascript para percorrer o array. Ao utilizar o `map` uma propriedade `key` é obrigatória - foi criada a prop e a tipagem de `place.id`, que é incluído no array `places` dos testes de `Map` e utilizado no componente `Map` do percorrer o array.
+
+Os testes passaram.
 
 ---

@@ -13,15 +13,28 @@ describe('<Map />', () => {
     ).toBeInTheDocument()
   })
 
-  it('should render with at least one marker', () => {
+  it('should render with two markers', () => {
     const placeOne = {
+      id: '1',
       name: 'São Paulo',
-      latitude: 51.505,
-      longitude: -0.09
+      location: {
+        latitude: -23.5488,
+        longitude: -46.6391
+      }
     }
 
-    render(<Map place={placeOne} />)
+    const placeTwo = {
+      id: '2',
+      name: 'Rio de Janeiro',
+      location: {
+        latitude: -22.9064,
+        longitude: -43.1729
+      }
+    }
+
+    render(<Map places={[placeOne, placeTwo]} />)
 
     expect(screen.getByTitle(/São Paulo/i)).toBeInTheDocument()
+    expect(screen.getByTitle(/Rio de Janeiro/i)).toBeInTheDocument()
   })
 })
