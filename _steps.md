@@ -628,3 +628,19 @@ No componente `Map` a prop é modificada de `place` pra `places` e a tipagem é 
 Os testes passaram.
 
 ---
+
+## Página inicial | Modificando o Map
+
+Inicializando o projeto:
+
+```sh
+yarn dev
+```
+
+Os testes passaram, mas agora o mapa renderizado na página inicial (`pages/index.tsx`) não mostra os pins/markers pois eles não estão mais dentro do componente `Map` de forma fixa. Para aparecerem os pins é necessário passar os dados via prop `places`.
+
+Foi passado um novo array com o objeto `place` (localidade de Belo Horizonte), que é exibido na renderização do mapa.
+
+Os pins não estão mais estáticos dentro do componente `Map`, mas o array no nível da página inicial (`pages/index.tsx`) nesse momento é um mock/estático - e ainda será configurado de forma dinâmica com um CMS.
+
+---
