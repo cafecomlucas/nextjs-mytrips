@@ -644,3 +644,21 @@ Foi passado um novo array com o objeto `place` (localidade de Belo Horizonte), q
 Os pins não estão mais estáticos dentro do componente `Map`, mas o array no nível da página inicial (`pages/index.tsx`) nesse momento é um mock/estático - e ainda será configurado de forma dinâmica com um CMS.
 
 ---
+
+## Novo componente `LinkWrapper` + Testes
+
+No topo da janela é necessário ter um link de informações que envia para a página "sobre" (about). Nesse caso o componente foi criado primeiro e os testes foram adicionados depois (sem TDD).
+
+### Componente - estrutura, estilização, parâmetros e tipagem
+
+ No novo componente `LinkWrapper` os parâmetros (um `href`, que recebe o caminho do link e um `children`, que recebe o conteúdo do link [imagem, texto, etc]) - para esses parâmetros foram definidos os tipos do Typescript no type `LinkWrapperProps`. Na estrutura o link foi definido com o componente `Link` do prórpio NextJS pois nele existem recursos de otimização como o pré-fetch (ao passar o mouse parte do conteúdo já é pré-carregado). No CSS foi definido um posicionamento fixo com as variáveis globais (definidas em `global.tsx`).
+
+### Componente - testes
+
+Para validar se o componente `LinkWrapper` é renderizado corretamente foi criado o arquivo de teste (`test.tsx`) - que faz a renderização (`render`), acessa o filho do `LinkWrapper` (`screen.getByRole`), valida se o link está no documento (`screen.toBeInTheDocument`) e se o atributo `href` existe (`screen.toHaveAttribute`).
+
+Os testes passaram.
+
+Obs: Nesse ponto o componente ainda não é definido para ser exibido em tela.
+
+---
