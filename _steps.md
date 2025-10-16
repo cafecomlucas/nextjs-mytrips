@@ -704,3 +704,9 @@ O Next não aceita estilização dentro da pasta `pages`, por isso foi criada a 
 Obs: por estar utilizando alias nos caminhos de arquivo (`@/`) foi necessário fazer o ajuste nas configs do Typescript (`tsconfig.json`).
 
 ---
+
+## Página About | Link de volta pra página inicial
+
+O componente `AboutTemplate` foi modificado pra ter um link "fecha" a página about e retorna pra página inicial (`/`) - foi utilizado o componente `LinkWrapper` e o ícone do Emotion Icons (`CloseOutline`).
+
+---
