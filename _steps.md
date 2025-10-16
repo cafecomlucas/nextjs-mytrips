@@ -696,3 +696,11 @@ Para criar a página "About" foi criado o arquivo `about.tsx` na pasta `pages` q
 Nesse momento ao clicar no link de info da página inicial o acesso para a página "About" é feito com sucesso.
 
 ---
+
+## Página About | Estrutura para os estilos | Nova pasta templates
+
+O Next não aceita estilização dentro da pasta `pages`, por isso foi criada a pasta `templates/About` - com a estrutura inicial no arquivo `index.tsx` (componente `AboutTemplate`) e a estilização inicial no arquivo `styles.ts`. O conteúdo da página `pages/about.tsx` foi substituído pela importação do componente `AboutTemplate`.
+
+Obs: por estar utilizando alias nos caminhos de arquivo (`@/`) foi necessário fazer o ajuste nas configs do Typescript (`tsconfig.json`).
+
+---

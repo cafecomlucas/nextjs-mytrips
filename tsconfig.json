@@ -21,7 +21,8 @@
     "baseUrl": "src",
     "paths": {
       "@/styles/*": ["styles/*"],
-      "@/components/*": ["components/*"]
+      "@/components/*": ["components/*"],
+      "@/templates/*": ["templates/*"],
     }
   },
   "include": [
