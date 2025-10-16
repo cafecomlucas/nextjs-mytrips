@@ -487,6 +487,8 @@ Para corrigir o erro "window is not defined" e o mapa abrir corretamente, na pá
 
 No componente `Map` foi adicionada a estilização de `width`/`height` pro mapa poder aparecer. Além disso o zoom do mapa com scroll foi ativado setando o atrubuto do Leaftlet `scrollWheelZoom` para `true`.
 
+### Refs:
+
 [Dynamic Imports (NextJS DOCs)](https://nextjs.org/docs/pages/guides/lazy-loading#with-no-ssr)
 
 ---
@@ -677,10 +679,20 @@ Na estilização do ícone que é filho do `LinkWrapper` foi adicionada a estili
 
 Ao rodar o projeto a exibição do ícone foi feita em tela e o efeito de `:hover` funcionou.
 
-### Refs
+Obs: Ao clicar no link exibe o erro 404 (página não existe). Na próxima etapa é criada a página `/about`.
+
+### Refs:
 
 [Emotion Icons](https://www.npmjs.com/package/emotion-icons)
 
 [Eva Icons](https://akveo.github.io/eva-icons/#/)
+
+---
+
+## Nova Página e Componente `About`
+
+Para criar a página "About" foi criado o arquivo `about.tsx` na pasta `pages` que exporta o componente `About`, o Next já entende que os componentes exportados dentro de pages são página, então uma nova rota (`/about`) é gerada e não é necessário fazer outras configurações.
+
+Nesse momento ao clicar no link de info da página inicial o acesso para a página "About" é feito com sucesso.
 
 ---
