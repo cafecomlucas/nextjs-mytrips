@@ -10,6 +10,16 @@ const AboutTemplate = () => (
     </LinkWrapper>
 
     <S.Heading>My Trips</S.Heading>
+
+    <S.Body>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a eros
+        placerat, aliquet metus sit amet, ullamcorper purus. Pellentesque
+        habitant morbi tristique senectus et netus et malesuada fames ac turpis
+        egestas. Class aptent taciti sociosqu ad litora torquent per conubia
+        nostra, per inceptos himenaeos.
+      </p>
+    </S.Body>
   </S.Content>
 )
 

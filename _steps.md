@@ -710,3 +710,9 @@ Obs: por estar utilizando alias nos caminhos de arquivo (`@/`) foi necessário f
 O componente `AboutTemplate` foi modificado pra ter um link "fecha" a página about e retorna pra página inicial (`/`) - foi utilizado o componente `LinkWrapper` e o ícone do Emotion Icons (`CloseOutline`).
 
 ---
+
+## Página About | Estilos
+
+Os estilos do componente `AboutTemplate` (`templates/About/styles.ts`) foi alterado, centralizando o conteúdo e mudando o tamanho da fonte. Também foi adicionada a estrutura/estilização do conteúdo geral (em `S.Body`).
+
+---
