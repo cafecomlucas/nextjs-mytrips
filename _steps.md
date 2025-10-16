@@ -662,3 +662,25 @@ Os testes passaram.
 Obs: Nesse ponto o componente ainda não é definido para ser exibido em tela.
 
 ---
+
+## Página Inicial | Componente LinkWrapper - ícone
+
+Para exibir o link de info na página inicial foi utilizada uma biblioteca de ícones chamada [emotion-icons](https://www.npmjs.com/package/emotion-icons) (equivalente ao styled icons). Pra não pesar muito foi instalado especificamente/apenas os [Eva Icons](https://akveo.github.io/eva-icons/#/).
+
+```sh
+yarn add @emotion-icons/evaicons-outline
+```
+
+Na página inicial (`pages/index.tsx`) o componente `LinkWrapper` foi importado e utilizado (com o href /about). O componente do ícone (`InfoOutline`) também foi importado e passado como filho pro componente `LinkWrapper`. Obs: No componente `InfoOutline` também foi adicionada a prop `aria-label` para a imagem svg gerada ter mais acessibilidade.
+
+Na estilização do ícone que é filho do `LinkWrapper` foi adicionada a estilização de mudança de cor no hover (`components/LinkWrapper/styles.tsx`).
+
+Ao rodar o projeto a exibição do ícone foi feita em tela e o efeito de `:hover` funcionou.
+
+### Refs
+
+[Emotion Icons](https://www.npmjs.com/package/emotion-icons)
+
+[Eva Icons](https://akveo.github.io/eva-icons/#/)
+
+---

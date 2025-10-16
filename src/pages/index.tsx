@@ -1,6 +1,7 @@
-'use client'
-
 import dynamic from 'next/dynamic'
+import { InfoOutline } from '@emotion-icons/evaicons-outline'
+
+import LinkWrapper from '@/components/LinkWrapper'
 
 const Map = dynamic(() => import('@/components/Map'), { ssr: false })
 
@@ -13,5 +14,12 @@ export default function Home() {
       longitude: -43.9333
     }
   }
-  return <Map places={[place]} />
+  return (
+    <>
+      <LinkWrapper href="/about">
+        <InfoOutline size={32} aria-label="About" />
+      </LinkWrapper>
+      <Map places={[place]} />
+    </>
+  )
 }
