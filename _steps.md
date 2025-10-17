@@ -716,3 +716,100 @@ O componente `AboutTemplate` foi modificado pra ter um link "fecha" a página ab
 Os estilos do componente `AboutTemplate` (`templates/About/styles.ts`) foi alterado, centralizando o conteúdo e mudando o tamanho da fonte. Também foi adicionada a estrutura/estilização do conteúdo geral (em `S.Body`).
 
 ---
+
+## Conteúdo dinâmico | Escolha do CMS
+
+Para gerênciar os conteúdos da página a parte é necessário um CMS (Content Management System) - que deixa o conteúdo dinâmico e desacoplado do código. A idéia é que ao atualizar um dado no gerenciador, a aplicação corresponda ao dado atualizado.
+
+Exemplo de páginas que podem ter dados dinâmicos:
+- Cabeçalho/Texto da página About
+- Localização de cada pin na página inicial
+- Cabeçalho/Texto/Imagem das páginas internas de cada pin
+
+Exemplos de CMS: Wordpress, Strapi, GraphCMS, Prismic, Dato CMS.
+
+Para essa aplicação é interessante ter um CMS que permita:
+- A desacoplação total do conteúdo e do código (Headless CMS) - permitindo disponibilizar apenas o conteúdo pra qualquer aplicação (front/mobile/desktop) via API REST ou via API GraphQL. Em sistemas Headless o conteúdo pode estar hospedado em uma plataforma e o código (de qualquer linguagem) hospedado em outra plataforma (antigamente o Wordpress não era Headless pois o conteúdo ficava no mesmo local do código, e, a função de gerenciar o conteúdo existia, mas o Frontend era fortemente acoplado ao Backend em PHP).
+- Configuração mínima/nula de servidor, banco de dados, etc.
+- Na nuvem (gerenciamento totalmente online).
+
+Algumas opções de Headless CMS em Clood:
+
+- Antigo GraphCMS (Agora [HyGraph](https://hygraph.com/)) - host completo, servidor, banco, GraphQL, armazenamento de assets (alternativa ao S3/Amazon), chamadas pra API.
+- [Prismic](https://prismic.io/) - semelhante ao HyGraph, mais complexo tecnicamente.
+- [Dato CMS](https://www.datocms.com/) - bom pra armazenamento de mídias (vídeo/imagem/áudio) com CDN (Content Delivery Network), mas apenas 300 registros no banco de dados.
+
+Para essa aplicação foi escolhido o [HyGraph](https://hygraph.com/)).
+
+---
+
+## HyGraph | CMS | Criação da estrutura
+
+Para o gerênciamento do conteúdo foi necessário criar uma estrutura dentro do HyGraph. Nesse estrutura existe o Projeto - que guarda os modelos de dados com os campos (schemas), os dados em si (conteúdos) e uma API Playground, onde é possível fazer testes para obter/alterar os dados via código.
+
+O passo a passo para o gerenciamento de conteúdo e integração com o Front:
+
+1. Criação/Setup do Schema, na plataforma (através do modelo no projeto)
+2. Criação do conteúdo, na plataforma
+3. Disponibilizar a API através de um token, na plataforma
+4. Integrar o conteúdo com o Front, através do GraphQL, na base de código
+
+---
+
+## HyGraph | CMS | Estrutura | Criação do Projeto/Modelo
+
+### Projeto (Project)
+
+O projeto é onde guardamos, os modelos de dados, os conteúdos, entre outras opções. Na plataforma foi criado um novo Projeto (Project), chamado `My Trips`.
+
+#### Modelo de dados (Model)
+
+O modelo de dados e os campos são uma abstração visual para definição do esquema (`schema`), com métodos e campos do schema gerados automaticamente.
+
+Dentro do projeto `My Trips` foi definido o primeiro modelo de dados. No "Display name" foi definido o nome `page`, que é utilizado automaticamente pelo HyGraph para definir o "API ID" (Page) e o API ID Plural (Pages).
+
+Obs: ia ser criado o modelo `about`, mas o Hygraph sempre cria o schema com o collection type (nesse caso o API ID Plural "Pages"). O correto seria o `about` ser singular (com o schema com o single type ao invés de collection type). Por isso foi criado o esquema mais genérico `pages`, que vai englobar tanto a página `about` quanto outras páginas.
+
+##### Campos (Fields)
+
+Os campos (Fields) são a definição dos dados específicos de um modelo (Model).
+
+Dentro do modelo `page` foram criados os campos:
+
+- heading : do tipo "Single line text", e obrigatório ("make field required" na aba validations) - armazena o título da página.
+- body - do tipo "Rich text", e obrigatório ("make field required" na aba validations) - armazena o texto de descrição da página.
+
+## HyGraph | CMS | Estrutura | Criação do conteúdo
+
+### Conteúdo (Content)
+
+Na aba "Content" ao acessar o modelo "page" foi criado um novo registro através do link "+ Add entry".
+
+Para o campo `heading` foi definido o texto "My Trips".
+
+Para o campo `body` foi definido um texto descritivo.
+
+---
+
+## HyGraph | CMS | Validando a obtenção de dados
+
+### API Playground | Primeira Query
+
+Na aba "API Playground" foi criada a primeira query para obter os dados de todas as páginas armazenadas:
+
+```gql
+query getPages {
+  pages {
+    id,
+    heading,
+    body {
+      html
+    }
+  }
+}
+```
+
+Foi retornado um objeto JSON com os dados da tabela dentro da prop "data".
+
+---
+
