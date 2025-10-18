@@ -701,7 +701,7 @@ Nesse momento ao clicar no link de info da página inicial o acesso para a pági
 
 O Next não aceita estilização dentro da pasta `pages`, por isso foi criada a pasta `templates/About` - com a estrutura inicial no arquivo `index.tsx` (componente `AboutTemplate`) e a estilização inicial no arquivo `styles.ts`. O conteúdo da página `pages/about.tsx` foi substituído pela importação do componente `AboutTemplate`.
 
-Obs: por estar utilizando alias nos caminhos de arquivo (`@/`) foi necessário fazer o ajuste nas configs do Typescript (`tsconfig.json`).
+Obs: por estar utilizando alias nos caminhos de arquivo (`@/`) foi necessário fazer o ajuste nas configs do Typescript (`tsconfig.json`) para incluir a pasta `src/templates`.
 
 ---
 
@@ -813,3 +813,41 @@ Foi retornado um objeto JSON com os dados da tabela dentro da prop "data".
 
 ---
 
+## CMS | Configuração de acesso externo | Variáveis de ambiente
+
+Para configurar o acesso externo a API do GraphQL do HyGraph é necessário:
+
+- o endpoint da API
+- uma autorização de acesso (pro acesso ser apenas do meu Front)
+- uma lib client do GraphQL
+
+### No HyGraph
+
+Nas configurações do HyGraph o `endpoint` foi obtido no link "Envoiroments" (ambientes), que só tem o ambiente de produção por ser o plano free, em cenários comerciais existem outros ambientes (stage por ex).
+
+Ainda nas configurações do HyGraph o `token` de autorização foi gerado no link "Permanent Auth Tokens".
+
+### No Projeto - instalação/configuração do client
+
+Foi escolhida a lib "Apollo Client" como ferramenta para se comunicar com o GraphQL do HyGraph - servindo principalmente para padronizar as requisições e para lidar com o cache automaticamente.
+
+Obs: No tutorial foi utilizado o `graphql-request` do Prisma, mas este repositório foi descontinuado, então por isso o "Apollo Client" foi escolhido como uma das [alternativas disponíveis](https://graphql.org/community/tools-and-libraries/?tags=javascript_client) (considerando o tempo do repositório/estabilidade, a comunidade e a doc disponível).
+
+**Instalação do "Apollo Client"**:
+```sh
+yarn add @apollo/client graphql rxjs
+```
+
+**Inicialização**: Seguindo as DOCs do Apollo Client, foi criado o arquivo de configuração `graphql/client.ts`, que utiliza os dados obtidos do HyGraph (`endpoint` e `token`) para fazer a [inicialização do Apollo Client](https://www.apollographql.com/docs/react/get-started#step-3-initialize-apolloclient) e a conexão com o GraphQL.
+
+Para o endpoint foi criada uma constante chamada `endpoint` que guarda a string do link.
+
+Para o token foi criada uma constante chamada `token` que guarda o token de autorização. Nesse caso o token de autorização é uma informação secreta e não pode ser versionada no repositório, por isso foi criado um arquivo chamado `.env.local` que é ignorado pelo git e serve para guardar as variáveis do ambiente local: nesse arquivo foi criada a variável `GRAPHQL_TOKEN` que recebe o token copiado do HyGraph.
+
+O Next obtem as [variáveis de ambiente](https://nextjs.org/docs/pages/guides/environment-variables#loading-environment-variables) automaticamente do arquivo `.env.local` e preenche a variável global `process.env` em tempo de execução. No arquivo `graphql/client.ts` o dado do token é obtido através do acesso a variável `process.env.GRAPHQL_TOKEN`. 
+
+**Autenticação/Header**: Seguindo as DOcs do Apollo Client, o header é configurado para incluir o `token` de [autenticação](https://www.apollographql.com/docs/react/networking/authentication#header) em todas as requisições.
+
+Obs: por estar utilizando alias nos caminhos de arquivo (`@/`) foi necessário fazer o ajuste nas configs do Typescript (`tsconfig.json`) para incluir a pasta `src/graphql`.
+
+---
