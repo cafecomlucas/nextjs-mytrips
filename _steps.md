@@ -851,3 +851,19 @@ O Next obtem as [variáveis de ambiente](https://nextjs.org/docs/pages/guides/en
 Obs: por estar utilizando alias nos caminhos de arquivo (`@/`) foi necessário fazer o ajuste nas configs do Typescript (`tsconfig.json`) para incluir a pasta `src/graphql`.
 
 ---
+
+## CMS | Variáveis de ambiente
+
+O arquivo de config do GraphQL (`src/graphql/client.ts`) foi atualizado: o link do endpoint foi recortado para o arquivo de variáveis do ambiente local `.env.local` e agora o dado do endpoint é obtido de lá.
+
+
+> <summary>arquivo <b><i>.env.local</i></b></summary>
+
+  ```env
+  GRAPHQL_HOST=https://us-west-2.cdn.hygraph.com/content/cmgs1u0o900kp07uqowxfkrvs/master
+
+  GRAPHQL_TOKEN=xYzAbC...
+  ```
+
+---
+
