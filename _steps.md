@@ -901,3 +901,9 @@ Obs: o conteúdo vem do banco, mas nessa etapa foi obtido apenas o primeiro regi
 
 ---
 
+## CMS | GraphQL | Definindo local padrão para as Queries
+
+Para facilitar a manutenção foi criado o arquivo `graphql/queries.ts` arquivo pra guardar as queries utilizadas. O arquivo `pages/about` foi alterado de acordo com essa alteração e agora importa a constante que é exportada do arquivo de Queries.
+
+---
+
