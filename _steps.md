@@ -864,6 +864,40 @@ O arquivo de config do GraphQL (`src/graphql/client.ts`) foi atualizado: o link 
 
   GRAPHQL_TOKEN=xYzAbC...
   ```
+  
+---
+
+## CMS | Exibindo dados do banco na página About
+
+Para exibir os dados do banco de dados na página About foi necessário alterar o template -, e a página About (onde o template é importado).
+
+### No template: 
+
+No arquivo `templates/About/index.tsx` foram adicionadas as novas props `heading` e `body`, que serão informadas na chamada do template. Para essas novas props foi criada a respectiva tipagem (`type AboutTemplateProps`). Para definir o `body` com o html foi necessário utilizar o atributo `dangerouslySetInnerHTML` que utilizamos apenas quando a fonte dos dados é segura (para garantir ainda mais segurança, pode ser configurado um "sanitizer").
+
+### Na página About:
+
+No arquivo `pages/about.tsx` é utilizado um recurso do Next para obter as props do banco de dados em tempo de compilação dos estáticos, ou seja, quando os estáticos são gerados no servidor (SSG) com o comando `next build` as páginas estáticas já são geradas com os dados do banco.
+
+Para gerar as props é utilizado o método `getStaticProps`, que ao ser declarado é reconhecido automaticamente pelo Next e executa antes do componente da página (antes com o nome `About`, agora alterado pra `AboutPage`).
+
+Dentro do `getStaticProps` é criado um `client` do Apollo, que faz a query pro GraphQL do HyGraph, obtendo o `heading` e o `body`, que são retornados em um objeto dentro da prop "props".
+
+Dentro do componente `AboutPage` o `heading` e o `body` são recebidos via props e passados pro componente `AboutTemplate`, que já está preparado pra receber essas novas props. Os tipos também foram importados e definidos (`AboutTemplateProps`).
+
+Os dados que aparecem da página agora são os mesmos dados cadastrados no HyGraph.
+
+Obs: o conteúdo vem do banco, mas nessa etapa foi obtido apenas o primeiro registro (`pages[0]`), em seguida um ajuste é feito para obter a página dinâmicamente.
+
+### Refs:
+
+[Apollo com Next antes da versão 13 (Pages directory)](https://www.apollographql.com/blog/next-js-getting-started#using-apollo-client-for-statically-rendered-page-data)
+
+[Definindo html com innerHTML no React](https://react.dev/reference/react-dom/components/common#dangerously-setting-the-inner-html)
+
+### Ref extra:
+
+[React Server Components (RSC - Next 13+](https://www.joshwcomeau.com/react/server-components/)
 
 ---
 

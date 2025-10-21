@@ -3,24 +3,28 @@ import { CloseOutline } from '@emotion-icons/evaicons-outline'
 
 import * as S from './styles'
 
-const AboutTemplate = () => (
-  <S.Content>
-    <LinkWrapper href="/">
-      <CloseOutline size={32} />
-    </LinkWrapper>
+export type AboutTemplateProps = {
+  heading: string
+  body: {
+    html: string | TrustedHTML
+  }
+}
 
-    <S.Heading>My Trips</S.Heading>
+const AboutTemplate = ({ heading, body }: AboutTemplateProps) => {
+  const html = { __html: body.html }
+  return (
+    <S.Content>
+      <LinkWrapper href="/">
+        <CloseOutline size={32} />
+      </LinkWrapper>
 
-    <S.Body>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a eros
-        placerat, aliquet metus sit amet, ullamcorper purus. Pellentesque
-        habitant morbi tristique senectus et netus et malesuada fames ac turpis
-        egestas. Class aptent taciti sociosqu ad litora torquent per conubia
-        nostra, per inceptos himenaeos.
-      </p>
-    </S.Body>
-  </S.Content>
-)
+      <S.Heading>{heading}</S.Heading>
+
+      <S.Body>
+        <div dangerouslySetInnerHTML={html}></div>
+      </S.Body>
+    </S.Content>
+  )
+}
 
 export default AboutTemplate
