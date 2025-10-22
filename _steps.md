@@ -907,3 +907,30 @@ Para facilitar a manutenção foi criado o arquivo `graphql/queries.ts` arquivo 
 
 ---
 
+## CMS | Slug | Definindo parâmetro pro conteúdo dinâmico
+
+Pro conteúdo dinâmico foi necessário definir um parâmetro único que serve de referência para obter os dados de uma página específica. Pra esse parâmetro foi criado um novo campo no banco, além de uma nova query no projeto pra obter os dados da página com base nesse novo campo.
+
+### No HyGraph | Novo campo no modelo Pages
+
+Foi criado campo o novo campo "slug" do tipo "[Slug](https://hygraph.com/docs/developer-guides/schema/slug-field)" com as opções:
+
+- "Generate slug from template": para a opção de gerar o slug no título (campo `{heading}`) 
+- "Make field required": obrigatório
+- "Set field as unique": pra garantir que o dado é o único para esse modelo
+
+Obs: Foi necessário atualizar o conteúdo já existente (da página about), incluindo o slug "about" no respectivo campo.
+
+### No Projeto
+
+Foi criada a nova query `GET_PAGE_BY_SLUG` que retorna os dados de uma única página (ao invés de retornar várias páginas).
+
+A query é utilizada na página "About", fazendo a requisição pro GraphQL com a variável `slug: "about"` como parâmetro. Os dados obtidos são retornados dentro do atributo "props". 
+
+Nesse ponto o conteúdo deixou de ser uma lista carregada de forma fixa e tratada pelo JavaScript (antigo `pages[0]`). Agora o conteúdo é carregado com base no "slug" e apenas um item é obtido direto do GraphQL.
+
+### Refs:
+
+[Campo Slug - HyGraph DOCs](https://hygraph.com/docs/developer-guides/schema/slug-field)
+
+---
