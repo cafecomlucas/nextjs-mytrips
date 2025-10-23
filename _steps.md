@@ -879,7 +879,7 @@ No arquivo `templates/About/index.tsx` foram adicionadas as novas props `heading
 
 No arquivo `pages/about.tsx` é utilizado um recurso do Next para obter as props do banco de dados em tempo de compilação dos estáticos, ou seja, quando os estáticos são gerados no servidor (SSG) com o comando `next build` as páginas estáticas já são geradas com os dados do banco.
 
-Para gerar as props é utilizado o método `getStaticProps`, que ao ser declarado é reconhecido automaticamente pelo Next e executa antes do componente da página (antes com o nome `About`, agora alterado pra `AboutPage`).
+Para gerar as props é utilizado o método `getStaticProps`, que ao ser declarado é reconhecido automaticamente pelo Next e executa antes do componente da página (antes com o nome `About`, agora alterado pra `AboutPage`). Esse método ocorre em tempo de compilação/buildtime (SSR).
 
 Dentro do `getStaticProps` é criado um `client` do Apollo, que faz a query pro GraphQL do HyGraph, obtendo o `heading` e o `body`, que são retornados em um objeto dentro da prop "props".
 
@@ -923,7 +923,7 @@ Obs: Foi necessário atualizar o conteúdo já existente (da página about), inc
 
 ### No Projeto
 
-Foi criada a nova query `GET_PAGE_BY_SLUG` que retorna os dados de uma única página (ao invés de retornar várias páginas).
+Foi criada a nova query `getPageBySlug` (disponibilizada automaticamente pelo HyGraph), que retorna os dados de uma única página (ao invés de retornar várias páginas).
 
 A query é utilizada na página "About", fazendo a requisição pro GraphQL com a variável `slug: "about"` como parâmetro. Os dados obtidos são retornados dentro do atributo "props". 
 
@@ -934,3 +934,34 @@ Nesse ponto o conteúdo deixou de ser uma lista carregada de forma fixa e tratad
 [Campo Slug - HyGraph DOCs](https://hygraph.com/docs/developer-guides/schema/slug-field)
 
 ---
+
+## CMS | Definindo rotas estáticas com base no slug
+
+Com o slug disponível, agora é possível utilizar esse dado para também gerar as rotas dinâmicamente, para isso é utilizado o método `getStaticPaths`, que ao ser declarado é reconhecido automaticamente pelo Next e executa antes do `getStaticProps` (e antes do componente da página em si). Esse método ocorre em tempo de compilação/buildtime (SSG).
+
+Dentro do método `getStaticPaths` foi criado um `client` do Apollo, que faz a query pro GraphQL do HyGraph, obtendo uma lista de páginas com o `slug` de cada página. A lista é retornada em um objeto dentro da prop "paths". Obs: o objeto também tem a prop "fallback" que é obrigatória, indicando se existe ou não algo pra mostrar antes da requisição terminar (como um "loading..." ou algo do tipo).
+
+Já dentro do `getStaticProps` foi feita uma alteração para obter o slug com base no "params" definido no `getStaticPaths`. Assim a definição pela string fixa "about" deixou de ser utilizada e agora esse dado vem direto do banco.
+
+Por fim a página `src/about.tsx` foi renomeada para `src/[slug].tsx`, que é entendida pelo Next como uma rota dinâmica, sendo renderizada com base no parâmetro entre [], nesse caso "slug".
+
+Agora tanto as rotas quanto o conteúdo estático de cada página são renderizados dinâmicamente em tempo de compilação/buildtime (SSG).
+
+### Conceitos
+
+Aqui o termo "dinâmico" se refere a geração (pre-rendering) das rotas/conteúdo em tempo de compilação (buildtime) - ou seja, no fim (ao rodar `next build`) o resultado é estático (SSG - resultando em uma estrutura de pastas e html). Além desse, também existe o termo "dinâmico" no contexto de rotas/conteúdo sendo gerados em tempo de execução (runtime), quando os dados são obtidos diretamente do servidor (SSR).
+
+Outra forma de ver: a geração pre-rendering/SSG é dinâmica pro dev e estática pro cliente, já a geração "rendering direto"/SSR é dinâmica pro dev e pro cliente.
+
+O que é chamado de "Dynamic Routes" no Next na verdade pode ser tanto rotas estáticas (se a rota responde com um html puro, sem consultas ao banco), quanto rotas "realmente" dinâmicas (se a rota depende de consultas ao banco no momento da requisição).
+
+### Refs:
+
+[SSG - Static Site Generation](https://nextjs.org/docs/pages/building-your-application/rendering/static-site-generation)
+
+[SSR - Server-side Rendering](https://nextjs.org/docs/pages/building-your-application/rendering/server-side-rendering)
+
+[Rotas dinâmicas - NextJS DOCs (Pages Router)](https://nextjs.org/docs/pages/building-your-application/routing/dynamic-routes)
+
+---
+
