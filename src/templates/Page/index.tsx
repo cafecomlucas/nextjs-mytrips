@@ -3,14 +3,14 @@ import { CloseOutline } from '@emotion-icons/evaicons-outline'
 
 import * as S from './styles'
 
-export type AboutTemplateProps = {
+export type PageTemplateProps = {
   heading: string
   body: {
     html: string | TrustedHTML
   }
 }
 
-const AboutTemplate = ({ heading, body }: AboutTemplateProps) => {
+const PageTemplate = ({ heading, body }: PageTemplateProps) => {
   const html = { __html: body.html }
   return (
     <S.Content>
@@ -27,4 +27,4 @@ const AboutTemplate = ({ heading, body }: AboutTemplateProps) => {
   )
 }
 
-export default AboutTemplate
+export default PageTemplate

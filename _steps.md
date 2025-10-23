@@ -965,3 +965,8 @@ O que é chamado de "Dynamic Routes" no Next na verdade pode ser tanto rotas est
 
 ---
 
+## Componente Page | Alteração em nome de pastas/importações
+
+Como o componente da página está ficou mais genérico, os lugares onde a palavra "About" era utilizada foram alterados para utilizar apenas a palavra "Page".
+
+---

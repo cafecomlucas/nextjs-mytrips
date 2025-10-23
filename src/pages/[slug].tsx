@@ -1,10 +1,10 @@
-import AboutTemplate, { AboutTemplateProps } from '@/templates/About'
+import PageTemplate, { PageTemplateProps } from '@/templates/Page'
 import createApolloClient from '@/graphql/client'
 import { GET_PAGE_BY_SLUG, GET_PAGES } from '@/graphql/queries'
 import { GetStaticProps, GetStaticPaths } from 'next'
 
-const AboutPage = ({ heading, body }: AboutTemplateProps) => {
-  return <AboutTemplate heading={heading} body={body} />
+const Page = ({ heading, body }: PageTemplateProps) => {
+  return <PageTemplate heading={heading} body={body} />
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -44,4 +44,4 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }
 }
 
-export default AboutPage
+export default Page
