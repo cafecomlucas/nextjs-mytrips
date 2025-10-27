@@ -1048,3 +1048,15 @@ A tipagem `GetStaticPaths` do next indicou um erro no retorno da função. A fun
 [Codegen Config](https://the-guild.dev/graphql/codegen/docs/config-reference/codegen-config)
 
 ---
+
+## Refs adicionais:
+
+[NextJS - Migração do Pages Router pro App Router](https://nextjs.org/docs/pages/guides/migrating/app-router-migration)
+
+[How to GraphQL](https://www.howtographql.com/basics/0-introduction/)
+
+[GraphQL Learn - Schema](https://graphql.org/learn/schema/)
+
+[HyGraph Quickstart](https://hygraph.com/docs/getting-started/fundamentals/quickstart)
+
+[HyGraph - Content Modeling](https://hygraph.com/blog/content-modeling#common-pitfalls-in-content-modeling)
