@@ -970,3 +970,81 @@ O que é chamado de "Dynamic Routes" no Next na verdade pode ser tanto rotas est
 Como o componente da página está ficou mais genérico, os lugares onde a palavra "About" era utilizada foram alterados para utilizar apenas a palavra "Page".
 
 ---
+
+## Projeto | Tipagem automática com base nos schemas
+
+Na resposta de cada query chega um objeto com a prop "data" com um objeto filho e as props pedidas ao GraphQL. A prop data e os filhos dela não foram tipadas até então.
+
+Para fazer a tipagem das respostas do GraphQL de forma automática é possível utilizar a biblioteca [codegen](https://the-guild.dev/graphql/codegen/docs/config-reference/codegen-config) que obtem as tipagens dos `schemas` do GraphQL e gera a tipagens em TypeScript.
+
+### Instalando o codegen:
+
+```sh
+yarn add --dev @graphql-codegen/cli
+```
+
+### Gerando o arquivo de config via CLI:
+
+Para gerar o arquivo de config automaticamente com base nas perguntas:
+
+```sh
+npx graphql-code-generator init
+```
+Perguntas/Respostas:
+
+> ✔ _What type of application are you building?_ **Application built with React**
+
+> ✔ _Where is your schema?:_ (path or url) **https://us-west-2.cdn.hygraph...**
+Obs: Aqui é o mesmo endereço definido no `GRAPHQL_HOST` da variáveis de ambiente (que foi obtido lá do HyGraph).
+
+> ✔ _Where are your operations and fragments?:_ **/src/graphql/client.ts**
+
+> ✔ _Where to write the output:_ **src/graphql/generated/graphql.ts**
+
+> ✔ _Do you want to generate an introspection file?_ **No**
+Obs: Isso serve para quando a aplicação precisa disponibilizar os schemas em um arquivo. Não é o caso dessa aplicação (my-trips). O HyGraph por exemplo disponibiliza esse arquivo via API, então outros devs conseguem saber os schemas.
+
+> ✔ _How to name the config file?_ **codegen.ts**
+
+> ✔ _What script in package.json should run the codegen?_ **codegen**
+Obs: palavra chave a ser definida no "package.json" para chamar o codegen.
+
+### Instalando pacotes adicionais:
+
+Após responder as perguntas é necessário executar o gerenciador de pacotes para instalar qualquer outro pacote/plugin que foi configurado pelo CLI na etapa anterior:
+
+```sh
+yarn
+```
+
+### Gerando os arquivos de tipagem do TypeScript
+
+Com a configuração feita, para gerar os arquivos de tipagem do TypeScript basta rodar o comando:
+
+```sh
+yarn codegen
+```
+
+### Para ignorar o lint nos arquivos gerados
+
+É necessário ignorar os arquivos gerados pois eles sempre são automáticos e não vai existir alteração manual neles.
+
+No tutorial é utilizada a lib `@graphql-codegen/add`, mas ela está desatualizada (em testes ela só teve efeito em um arquivo). Antes o codegen gerava só um arquivo e agora gera vários, o que levou a essa icompatibilidade.
+
+Como alternativa a config do eslint foi alterada direto no arquivo `eslint.config.mjs` para ignorar tudo que estiver na pasta `graphql/genetared`.
+
+
+### Adicionando a tipagem nos retornos das queries
+
+No Componente da página genérica (`Page` em `[src/slug].tsx`) os tipos `GetPagesQuery` / `GetPageBySlugQuery` foram importados do arquivo gerado pelo codegen e passados como argumento de tipagem pro método `query` do Apollo Client, dessa forma a tipagem do retorno é entendida, as props "data" e os filhos dela passam a ter o autocomplete do intelisense.
+
+### Ajuste indicado pelo TypeScript (Workaround)
+
+A tipagem `GetStaticPaths` do next indicou um erro no retorno da função. A função sempre deve retornar a prop `paths` com um array de objetos que possuem a prop `params`, então quando o `paths` for indefinido ou quando o array de paths não tiver nenhum item, ainda é necessário existir um paths com esses critérios (`paths = [{ params: { slug: ''} }]`). Então foi feito o ajuste que faz um `if` pra verificar os critérios e modifica o `paths` caso necessário, evitando um erro de processamento no next.
+
+
+### Refs:
+
+[Codegen Config](https://the-guild.dev/graphql/codegen/docs/config-reference/codegen-config)
+
+---

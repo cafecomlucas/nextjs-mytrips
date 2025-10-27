@@ -13,7 +13,7 @@ export default defineConfig([
   esLintPluginReact.configs.flat.recommended,
   esLintPluginReact.configs.flat['jsx-runtime'],
   esLintPluginJestDom.configs['flat/recommended'],
-  globalIgnores(['**/*.snap']),
+  globalIgnores(['**/*.snap', 'src/graphql/generated/**']),
   eslintPluginPrettierRecommended,
   {
     files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
