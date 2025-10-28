@@ -1049,6 +1049,119 @@ A tipagem `GetStaticPaths` do next indicou um erro no retorno da função. A fun
 
 ---
 
+## Marcadores do mapa | Estrutura de dados no Hygraph CMS
+
+Para os marcadores/pins é necessário entender quais dados são necessários, para depois criar a estrutura através do modelo no Hygraph CMS. Analisando a referencia do projeto final, foi definido que é necessário:
+
+Pra página **Home**:
+
+```
+Home
+.
+├── Localidade
+│   ├── Latitude
+│   └── Longitude
+└── Nome do local (mousehover)
+```
+
+Pra **página interna**:
+
+```
+[página interna]
+.
+├── slug (pra url)
+├── Nome do local (Título)
+├── Descrição
+└── Lista de Imagens
+```
+
+### Definição do modelo/schema
+
+Dentro do projeto `My Trips` foi definido o segundo modelo de dados (o primeiro foi o page). No "Display name" foi definido o nome `place`, que é utilizado automaticamente pelo HyGraph para definir o "API ID" (Place) e o API ID Plural (Places).
+
+### Campos (Fields)
+
+Considerando a análise anterior, dentro do modelo `place` foram criados os campos:
+
+- **name**
+  - armazena o nome da localidade
+  - do tipo "Single line text"
+  - obrigatório (opção "Make field required")
+  - reaproveitável em 2 páginas:
+    - pro mousehover na home
+    - pro título na página interna 
+- **slug**
+  - para a URL da localidade
+  - com geração automática com base no campo {name} ("Generate slug from template")
+  - caixa baixa (opção "lowercase")
+  - obrigatório (opção "Make field required")
+  - dado único (opção "Set field as unique")
+- **location**
+  - armazena as coordenadas da localidade
+  - do tipo "Location" (antigo "Map")
+  - com o recurso de mapa interativo do próprio HyGraph
+  - obrigatório (opção "Make field required")
+  - um pin por local/dado único (opção "Set field as unique")
+- **description**
+  - armazena o texto de descrição da localidade
+  - do tipo "Rich text" (serve pra html, listas, etc)
+  - campo opcional (opção "Make field required" **_desmarcada_**)
+- **gallery**
+  - armazena a coleção de imagens da localidade
+  - do tipo "Asset picker"
+  - aceita várias imagens (opção "allow multiple assets")
+  - pelo menos uma imagem/campo obrigatório (opção "Make field required")
+
+Criação do modelo/schema concluído.
+
+### Populando o conteúdo
+
+Na aba "Content" ao acessar o modelo "place" foi criado um novo registro através do link "+ Add entry":
+
+- **name**
+  - preenchido com o texto `Paraty` 
+- **slug**
+  - preenchido com o texto `paraty` (gerado automático)
+- **location**
+  - o Hygraph permite selecionar ou pesquisar locais no mapa interativo
+  - utilizado para posição do marker/pin
+  - preenchida com a localidade de Paraty
+- **description**
+  - não preenchido (opcional)
+- **gallery**
+  - o Hygraph permite selecionar imagens locais ou pesquisar imagens online
+  - preenchida com 2 imagens após pesquisa
+
+### Validando a obtenção dos dados | API Playground
+
+Na aba "API Playground" foi criada a query para obter os dados de todos os locais armazenados:
+
+```gql
+query getPlaces {
+  places {
+    name
+    slug
+    location {
+      latitude
+      longitude
+    }
+    description {
+      html
+    }
+    gallery {
+      url
+      width
+      height
+    }
+  }
+}
+```
+
+Foi retornado um objeto JSON com os dados existentes na tabela "places".
+
+
+---
+
 ## Refs adicionais:
 
 [NextJS - Migração do Pages Router pro App Router](https://nextjs.org/docs/pages/guides/migrating/app-router-migration)
