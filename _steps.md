@@ -1091,11 +1091,14 @@ Considerando a análise anterior, dentro do modelo `place` foram criados os camp
     - pro mousehover na home
     - pro título na página interna 
 - **slug**
-  - para a URL da localidade
+  - armazena a URL da localidade
   - com geração automática com base no campo {name} ("Generate slug from template")
   - caixa baixa (opção "lowercase")
   - obrigatório (opção "Make field required")
   - dado único (opção "Set field as unique")
+  - reaproveitável em 2 páginas:
+    - pro link da home
+    - pra URL da página interna 
 - **location**
   - armazena as coordenadas da localidade
   - do tipo "Location" (antigo "Map")
@@ -1139,6 +1142,7 @@ Na aba "API Playground" foi criada a query para obter os dados de todos os locai
 ```gql
 query getPlaces {
   places {
+    id
     name
     slug
     location {
@@ -1158,6 +1162,14 @@ query getPlaces {
 ```
 
 Foi retornado um objeto JSON com os dados existentes na tabela "places".
+
+## Marcadores do mapa | Projeto | Separando o Componente/Template Home
+
+Antes de integrar com o CMS e obter os dados do mapa foi necessário fazer a separação da página inicial (onde os dados serão requisitados) do componente em si (onde os dados serão apresentados).
+
+Todo o código da página inicial (componente Home - `pages/index.tsx`) foi recortado pro novo componente HomeTemplate (`templates/Home/index.tsx`) e neste ponto o componente `HomeTemplate` é apenas importado no componente `Home`.
+
+A modificação para obtenção e visualização dos dados é feita a seguir.
 
 
 ---
