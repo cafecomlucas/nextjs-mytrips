@@ -2,24 +2,19 @@ import dynamic from 'next/dynamic'
 import { InfoOutline } from '@emotion-icons/evaicons-outline'
 
 import LinkWrapper from '@/components/LinkWrapper'
+import { MapProps } from '@/components/Map'
 
 const Map = dynamic(() => import('@/components/Map'), { ssr: false })
 
-const HomeTemplate = () => {
-  const place = {
-    id: '154',
-    name: 'Belo Horizonte',
-    location: {
-      latitude: -19.9167,
-      longitude: -43.9333
-    }
-  }
+export type HomeTemplateProps = MapProps
+
+const HomeTemplate = ({ places }: HomeTemplateProps) => {
   return (
     <>
       <LinkWrapper href="/about">
         <InfoOutline size={32} aria-label="About" />
       </LinkWrapper>
-      <Map places={[place]} />
+      <Map places={places} />
     </>
   )
 }

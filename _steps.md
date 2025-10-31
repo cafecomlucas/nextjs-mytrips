@@ -1171,6 +1171,22 @@ Todo o código da página inicial (componente Home - `pages/index.tsx`) foi reco
 
 A modificação para obtenção e visualização dos dados é feita a seguir.
 
+## Marcadores do mapa | Projeto | Integração do CMS
+
+Para a integração com o CMS:
+
+- a query `getPlaces` foi copiada do Hygraph pro arquivo `graphql/queries.ts`;
+- a tipagem automatica da nova query foi gerada (com o comando `yarn codegen`);
+- pra geração das props estáticas com base nos dados retornados de `getPlaces`:
+  - o método `getStaticProps` do Next foi criado na página inicial (`pages/index.tsx`)
+  - o query é chamada pelo Apollo Client
+  - a query é tipada (utilizando o código gerado pelo codegen)
+  - o resultado é retornado dentro de "props"
+- foi criada a nova prop "places" no componente `Home`, que recebe os dados retornados pelo método `getStaticProps` e passa pro componente `HomeTemplate`;
+- foi criada a nova prop "places" no componente `HomeTemplate`, que recebe os dados retornados pelo componente `Home`
+- o componente `Map` deixa de receber dados fixos e passa a receber os dados via props do componente `Home`.
+
+Como resultado o mapa mostra os pins dinâmicamente, com base nos dados cadastrados no banco de dados do HyGraph que chegam via GraphQL.
 
 ---
 
