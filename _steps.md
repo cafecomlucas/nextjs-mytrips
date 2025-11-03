@@ -1190,6 +1190,27 @@ Como resultado o mapa mostra os pins dinâmicamente, com base nos dados cadastra
 
 ---
 
+## Links de cada Marker | Componente Map
+
+Para adicionar o link para as páginas internas o Componente `Map` foi alterado:
+
+- a propriedade `slug` foi adicionada a tipagem de `Place` e nos argumentos do método `.map` utilizado no array `places`.
+- o caminho da página interna (href) foi criado utilizando o `slug`.
+- o método `useRouter.push` do Next foi utilizado para redirecionar pra página interna baseado no href.
+- foi criado o método `HandleClick` com a chamada do `useRouter.push` para cada item de `places`.
+- o método `HandleClick` é atribuído ao evento click de cada Maker através da prop `eventHandlers` do [React Leaflet](https://react-leaflet.js.org/docs/example-events/).
+
+> **Obs:** O método `useRouter.push` foi utilizado no lugar do componente `Link` do Next por conta da estrutura interna do pacote React-Leflet.
+
+Neste ponto da aplicação, ao clicar em um pin/marker é feito o redirecionamento para página interna (404, pois falta a integração com as páginas internas).
+
+## Refs:
+
+[React Leaflet DOCs - Events](https://react-leaflet.js.org/docs/example-events/)
+
+
+---
+
 ## Refs adicionais:
 
 [NextJS - Migração do Pages Router pro App Router](https://nextjs.org/docs/pages/guides/migrating/app-router-migration)
