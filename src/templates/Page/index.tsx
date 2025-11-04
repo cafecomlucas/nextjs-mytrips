@@ -5,13 +5,13 @@ import * as S from './styles'
 
 export type PageTemplateProps = {
   heading: string
-  body: {
+  body?: {
     html: string | TrustedHTML
   }
 }
 
 const PageTemplate = ({ heading, body }: PageTemplateProps) => {
-  const html = { __html: body.html }
+  const html = { __html: body?.html || '' }
   return (
     <S.Content>
       <LinkWrapper href="/">
@@ -20,9 +20,11 @@ const PageTemplate = ({ heading, body }: PageTemplateProps) => {
 
       <S.Heading>{heading}</S.Heading>
 
-      <S.Body>
-        <div dangerouslySetInnerHTML={html}></div>
-      </S.Body>
+      {html && (
+        <S.Body>
+          <div dangerouslySetInnerHTML={html}></div>
+        </S.Body>
+      )}
     </S.Content>
   )
 }

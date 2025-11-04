@@ -1231,6 +1231,12 @@ Semelhante ao que foi feito pra [pages](#cms--definindo-rotas-estáticas-com-bas
 
 Neste ponto da aplicação já é possível acessar uma rota ao clicar em um Marker da página inicial - que mostra o título definido dentro do `<h1>`.
 
+---
+
+## Componente Page | Ajuste na tipagem
+
+> Feito um ajuste no Componente Page (`templates/Page/index.tsx`) para a tipagem do componente ficar de acordo com o schema do GraphQL, definindo o campo `body` como opcional e só exibindo o conteúdo se o campo estiver definido.
+
 
 ---
 
