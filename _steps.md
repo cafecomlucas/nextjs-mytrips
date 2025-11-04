@@ -1211,6 +1211,29 @@ Neste ponto da aplicação, ao clicar em um pin/marker é feito o redirecionamen
 
 ---
 
+## Página Place | Definindo rotas estáticas com base no slug
+
+Semelhante ao que foi feito pra [pages](#cms--definindo-rotas-estáticas-com-base-no-slug), neste ponto é possível utilizar o slug de `places` para gerar as rotas estáticas dinâmicamente:
+
+- A query que busca os lugares pelo slug foi criada (arquivo `queries.ts`).
+- A tipagem automática das queries é gerada (`yarn codegen`)
+  - `GetPlaceBySlugQuery` criado na geração automática
+- Foi criado o arquivo da página Place (`pages/place/[slug].tsx`);
+- Foi definido o método `getStaticPaths`, utilizado pelo Next para definir as rotas estáticas com base no parâmetro dinâmico `slug`:
+  - A query `GET_PLACES` é chamada para obter o slug de cada place;
+  - A tipagem do retorno da query é definida (`GetPlacesQuery`);
+  - O método retorna o objeto com as props `paths` e `fallback`.
+- Foi definido o método `getStaticProps`, utilizado pelo Next para definir as props recebidas na página Place (por enquanto somente `heading`):
+  - A query `GET_PLACE_BY_SLUG` é chamada para obter o slug de cada place;
+  - A tipagem do retorno da query é definida (`GetPlaceBySlugQuery`);
+  - O método retorna o objeto `{ props: { heading } }`.
+- Foi criado o componente `Place`, que recebe a prop `heading` para ser exibida dentro da tag `<h1>`.
+
+Neste ponto da aplicação já é possível acessar uma rota ao clicar em um Marker da página inicial - que mostra o título definido dentro do `<h1>`.
+
+
+---
+
 ## Refs adicionais:
 
 [NextJS - Migração do Pages Router pro App Router](https://nextjs.org/docs/pages/guides/migrating/app-router-migration)
