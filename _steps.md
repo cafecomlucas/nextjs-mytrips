@@ -1241,7 +1241,22 @@ Neste ponto da aplicação já é possível acessar uma rota ao clicar em um Mar
 
 ---
 
+## Página Place | Definindo conteúdo da descrição
 
+Foi feito um ajuste na página `Place` para exibição dos conteúdos:
+
+- A query que busca lugares pelo slug foi atualizada (`queries.ts`).
+- A tipagem automática das queries é atualizada (`yarn codegen`)
+  - `GetPlaceBySlugQuery` atualizado na geração automática
+- O método `getStaticProps` do next foi atualizado para passar o objeto `place` completo ao invés de props separadas (`name`/`description`)
+- O componente `Place` foi atualizado:
+  - tipagem atualizada (`PageTemplateProps` removido e `PlaceTemplateProps` adicionado)
+  - recebe a prop `place` completa ao invés de props individuais
+  - a tag `<h1>` agora recebe a prop `place.name` ao invés de `heading`.
+  - a tag `<div>` é criada e recebe a prop `place.description`
+
+
+Neste ponto da aplicação já é possível ver o título e a descrição de um lugar ao acessar uma rota.
 
 ---
 

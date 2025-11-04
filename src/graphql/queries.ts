@@ -49,6 +49,9 @@ export const GET_PLACE_BY_SLUG = gql`
   query getPlaceBySlug($slug: String!) {
     place(where: { slug: $slug }) {
       name
+      description {
+        html
+      }
     }
   }
 `
