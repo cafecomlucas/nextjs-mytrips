@@ -1237,6 +1237,11 @@ Neste ponto da aplicação já é possível acessar uma rota ao clicar em um Mar
 
 > Feito um ajuste no Componente Page (`templates/Page/index.tsx`) para a tipagem do componente ficar de acordo com o schema do GraphQL, definindo o campo `body` como opcional e só exibindo o conteúdo se o campo estiver definido.
 
+> Feito outro ajuste no componente Page. Ocorreu uma confusão, na verdade o campo `body` do componente `Page` é obrigatório, então a tipagem ajustada. O campo `description` do componente Place que é opcional (tipagem feita a seguir).
+
+---
+
+
 
 ---
 
