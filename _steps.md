@@ -1258,6 +1258,17 @@ Foi feito um ajuste na página `Place` para exibição dos conteúdos:
 
 Neste ponto da aplicação já é possível ver o título e a descrição de um lugar ao acessar uma rota.
 
+## Componente PlaceTemplate | Separando o conteúdo da geração estática
+
+Semelhante ao que foi feito pro página `Page`, a página `Place` foi alterada - o código do conteúdo foi movido para um novo componente (`templates/Place/index.tsx`) e foi criado um arquivo de estilos (`templates/Place/styles.ts`). Essas modificações melhoram:
+
+- a organização;
+- a manutenção;
+- o isolamento da estrutura;
+- o isolamento da estilização;
+- o isolamento da lógica;
+- o isolamento da tipagem.
+
 ---
 
 ## Refs adicionais:

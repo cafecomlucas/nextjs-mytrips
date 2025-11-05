@@ -1,3 +1,4 @@
+import PlaceTemplate, { PlaceTemplateProps } from '@/templates/Place'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import {
   GetPlacesQuery,
@@ -7,25 +8,8 @@ import {
 import createApolloClient from '@/graphql/client'
 import { GET_PLACES, GET_PLACE_BY_SLUG } from '@/graphql/queries'
 
-export type PlaceTemplateProps = {
-  place: {
-    name: string
-    description?: {
-      html: string | TrustedHTML
-    }
-  }
-}
-
 const Place = ({ place }: PlaceTemplateProps) => {
-  const { name, description } = place
-  const html = description && { __html: description.html }
-
-  return (
-    <>
-      <h1>{name}</h1>
-      {html && <div dangerouslySetInnerHTML={html}></div>}
-    </>
-  )
+  return <PlaceTemplate place={place} />
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
