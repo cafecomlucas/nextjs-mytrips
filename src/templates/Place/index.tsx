@@ -1,4 +1,6 @@
+import LinkWrapper from '@/components/LinkWrapper'
 import * as S from './styles'
+import { CloseOutline } from '@emotion-icons/evaicons-outline'
 
 export type PlaceTemplateProps = {
   place: {
@@ -13,10 +15,20 @@ const PlaceTemplate = ({ place }: PlaceTemplateProps) => {
   const { name, description } = place
   const html = description && { __html: description.html }
   return (
-    <S.Wrapper>
-      <h1>{name}</h1>
-      {html && <div dangerouslySetInnerHTML={html}></div>}
-    </S.Wrapper>
+    <>
+      <LinkWrapper href="/">
+        <CloseOutline size={32} aria-label="Go back to map" />
+      </LinkWrapper>
+
+      <S.Wrapper>
+        <S.Container>
+          <S.Heading>{name}</S.Heading>
+
+          {html && <S.Body dangerouslySetInnerHTML={html} />}
+        </S.Container>
+        <S.Gallery></S.Gallery>
+      </S.Wrapper>
+    </>
   )
 }
 

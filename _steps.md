@@ -1271,6 +1271,14 @@ Semelhante ao que foi feito pro página `Page`, a página `Place` foi alterada -
 
 ---
 
+## Componente PlaceTemplate | Estilização e botão de voltar
+
+Estilização base definida para o componente PlaceTemplate (`templates/Place/styles.ts`). Também foi adicionado o botão de fechar/voltar pra página inicial (semelhante ao `PageTemplate`).
+
+> Obs: Devido ao cache gerado pela compilação dos estáticos (com `yarn build`), foi necessário limpar os dados do site (`Clear site data` na aba "Application" do inspetor, removendo qualquer cache/dados do PWA).
+
+---
+
 ## Refs adicionais:
 
 [NextJS - Migração do Pages Router pro App Router](https://nextjs.org/docs/pages/guides/migrating/app-router-migration)
