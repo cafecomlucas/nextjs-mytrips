@@ -11,6 +11,14 @@ const nextConfig = {
   reactStrictMode: true,
   compiler: {
     emotion: true
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'us-west-2.graphassets.com'
+      }
+    ]
   }
 }
 

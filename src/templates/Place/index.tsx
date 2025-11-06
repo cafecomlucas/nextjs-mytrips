@@ -1,6 +1,7 @@
 import LinkWrapper from '@/components/LinkWrapper'
 import * as S from './styles'
 import { CloseOutline } from '@emotion-icons/evaicons-outline'
+import Image from 'next/image'
 
 export type PlaceTemplateProps = {
   place: {
@@ -30,13 +31,14 @@ const PlaceTemplate = ({ place }: PlaceTemplateProps) => {
           {html && <S.Body dangerouslySetInnerHTML={html} />}
           <S.Gallery>
             {gallery.map(({ url }, index) => (
-              <img
+              <Image
                 key={`photo-${index}`}
                 src={url}
                 alt={name}
                 sizes="100vw"
                 width={1000}
                 height={600}
+                quality={75}
               />
             ))}
           </S.Gallery>

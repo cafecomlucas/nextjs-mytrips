@@ -349,7 +349,7 @@ Obs: Vale lembrar que os Snapshots não são utilizados em tudo, somente onde fa
 
 ## PWA | Configuração dos recursos de aplicativo local
 
-É possível configurar a aplicação para ter acesso a recursos de um aplicativo local (como notificações, acesso offline, etc) para facilitar esse processo foi adicionado o pacote `next-pwa` (baseado no pacote `workbook` do Google), que gera boa parte da configuração:
+É possível configurar a aplicação para ter acesso a recursos de um aplicativo local (como notificações, acesso offline, etc) para facilitar esse processo foi adicionado o pacote `next-pwa` (baseado no pacote `workbox` do Google), que gera boa parte da configuração:
 
 ```sh
 yarn add next-pwa
@@ -1290,6 +1290,52 @@ As imagens ainda não apareciam nesse ponto da aplicação. Para incluir as imag
 - definição dos estilos para imagens responsivas (`templates/Place/styles.ts`)
 
 Neste ponto da aplicação as imagens aparecem ao acessar a página de cada localidade.
+
+---
+
+## Componente PlaceTemplate | Otimizando imagens
+
+As imagens vindo direto do HyGraph estavam muito pesadas e carregando todas de uma vez só. Para otimizar esses pontos:
+
+- as configs do Next foram atualizadas para requisição de imagens externas
+  - o domínio `us-west-2.graphassets.com` foi adicionado
+- a tag `img` foi trocada pelo componente `Image` do Next, que:
+  - baixa uma cópia das imagens
+  - otimiza as imagens alterando o formato (.webp)
+  - cria mais versões das imagens de acordo com o tamanho de tela (viewport)
+  - aplica o lazy loading para imagens abaixo da dobra da página
+
+- sobre a prioridade:
+  - o atributo `priority` do Next Image permite priorizar imagens, como por exemplo imagens acima da dobra, o que permite medir corretamente o [LCP - Large Contentful Paint](https://web.dev/articles/lcp). 
+
+Neste ponto as páginas ficaram mais leves para diversos tamanho de tela e carregam mais rápido, melhorando a experiência do usuário (UX).
+
+### Exemplo de carregamento na localidade São Paulo, SP:
+
+Cenário: acesso via conexão 4G (rápida):
+
+Antes:
+- FCP (First Contentful Paint): 0.4 s
+- transferred: 5800 Kb
+- Load: 7.28 s
+- Finish: 7.78 s
+
+Depois:
+- FCP (First Contentful Paint): 0.4 s
+- transferred: 271 Kb
+- Load: 640 ms
+- Finish: 1.06 s
+
+**Resultado:** 
+- Aumento de 734% na velocidade de carregamento
+- Economia de 6.72 segundos
+
+
+## Refs:
+
+[FCP - First Contentful Paint](https://developer.chrome.com/docs/lighthouse/performance/first-contentful-paint)
+[LCP - Large Contentful Paint](https://web.dev/articles/lcp)
+[Componente Image - Next DOCs](https://nextjs.org/docs/pages/getting-started/images)
 
 ---
 
