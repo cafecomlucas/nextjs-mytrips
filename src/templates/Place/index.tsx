@@ -8,11 +8,14 @@ export type PlaceTemplateProps = {
     description?: {
       html: string | TrustedHTML
     }
+    gallery: {
+      url: string
+    }[]
   }
 }
 
 const PlaceTemplate = ({ place }: PlaceTemplateProps) => {
-  const { name, description } = place
+  const { name, description, gallery } = place
   const html = description && { __html: description.html }
   return (
     <>
@@ -25,8 +28,19 @@ const PlaceTemplate = ({ place }: PlaceTemplateProps) => {
           <S.Heading>{name}</S.Heading>
 
           {html && <S.Body dangerouslySetInnerHTML={html} />}
+          <S.Gallery>
+            {gallery.map(({ url }, index) => (
+              <img
+                key={`photo-${index}`}
+                src={url}
+                alt={name}
+                sizes="100vw"
+                width={1000}
+                height={600}
+              />
+            ))}
+          </S.Gallery>
         </S.Container>
-        <S.Gallery></S.Gallery>
       </S.Wrapper>
     </>
   )

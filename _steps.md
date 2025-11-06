@@ -1278,6 +1278,20 @@ Estilização base definida para o componente PlaceTemplate (`templates/Place/st
 > Obs: Devido ao cache gerado pela compilação dos estáticos (com `yarn build`), foi necessário limpar os dados do site (`Clear site data` na aba "Application" do inspetor, removendo qualquer cache/dados do PWA).
 
 ---
+## Componente PlaceTemplate | Adicionando imagens
+
+As imagens ainda não apareciam nesse ponto da aplicação. Para incluir as imagens de cada lugar na página `Place`, foram feitas as modificações:
+
+- atualização na query `getPlaceBySlug`, incluindo a prop `gallery`
+- atualização da tipagem (via `yarn codegen`) do retorno da query (`GetPlaceBySlugQuery`)
+- atualização nos tipagem de `PlaceTemplateProps`, incluindo a prop `gallery`
+- após o título e a descrição da página, a criação de um loop (via `map`) em `gallery`
+- no loop, o retorno de cada imagem com a definição da `url` no `src`
+- definição dos estilos para imagens responsivas (`templates/Place/styles.ts`)
+
+Neste ponto da aplicação as imagens aparecem ao acessar a página de cada localidade.
+
+---
 
 ## Refs adicionais:
 

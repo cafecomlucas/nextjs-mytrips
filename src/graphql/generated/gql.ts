@@ -17,13 +17,13 @@ type Documents = {
     "\n  query getPages {\n    pages {\n      slug\n      heading\n      body {\n        html\n      }\n    }\n  }\n": typeof types.GetPagesDocument,
     "\n  query getPageBySlug($slug: String!) {\n    page(where: { slug: $slug }) {\n      heading\n      body {\n        html\n      }\n    }\n  }\n": typeof types.GetPageBySlugDocument,
     "\n  query getPlaces {\n    places {\n      id\n      name\n      slug\n      location {\n        latitude\n        longitude\n      }\n      description {\n        html\n      }\n      gallery {\n        url\n        width\n        height\n      }\n    }\n  }\n": typeof types.GetPlacesDocument,
-    "\n  query getPlaceBySlug($slug: String!) {\n    place(where: { slug: $slug }) {\n      name\n      description {\n        html\n      }\n    }\n  }\n": typeof types.GetPlaceBySlugDocument,
+    "\n  query getPlaceBySlug($slug: String!) {\n    place(where: { slug: $slug }) {\n      name\n      description {\n        html\n      }\n      gallery {\n        url\n      }\n    }\n  }\n": typeof types.GetPlaceBySlugDocument,
 };
 const documents: Documents = {
     "\n  query getPages {\n    pages {\n      slug\n      heading\n      body {\n        html\n      }\n    }\n  }\n": types.GetPagesDocument,
     "\n  query getPageBySlug($slug: String!) {\n    page(where: { slug: $slug }) {\n      heading\n      body {\n        html\n      }\n    }\n  }\n": types.GetPageBySlugDocument,
     "\n  query getPlaces {\n    places {\n      id\n      name\n      slug\n      location {\n        latitude\n        longitude\n      }\n      description {\n        html\n      }\n      gallery {\n        url\n        width\n        height\n      }\n    }\n  }\n": types.GetPlacesDocument,
-    "\n  query getPlaceBySlug($slug: String!) {\n    place(where: { slug: $slug }) {\n      name\n      description {\n        html\n      }\n    }\n  }\n": types.GetPlaceBySlugDocument,
+    "\n  query getPlaceBySlug($slug: String!) {\n    place(where: { slug: $slug }) {\n      name\n      description {\n        html\n      }\n      gallery {\n        url\n      }\n    }\n  }\n": types.GetPlaceBySlugDocument,
 };
 
 /**
@@ -55,7 +55,7 @@ export function graphql(source: "\n  query getPlaces {\n    places {\n      id\n
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query getPlaceBySlug($slug: String!) {\n    place(where: { slug: $slug }) {\n      name\n      description {\n        html\n      }\n    }\n  }\n"): (typeof documents)["\n  query getPlaceBySlug($slug: String!) {\n    place(where: { slug: $slug }) {\n      name\n      description {\n        html\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query getPlaceBySlug($slug: String!) {\n    place(where: { slug: $slug }) {\n      name\n      description {\n        html\n      }\n      gallery {\n        url\n      }\n    }\n  }\n"): (typeof documents)["\n  query getPlaceBySlug($slug: String!) {\n    place(where: { slug: $slug }) {\n      name\n      description {\n        html\n      }\n      gallery {\n        url\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

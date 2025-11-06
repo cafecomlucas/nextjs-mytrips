@@ -52,6 +52,9 @@ export const GET_PLACE_BY_SLUG = gql`
       description {
         html
       }
+      gallery {
+        url
+      }
     }
   }
 `

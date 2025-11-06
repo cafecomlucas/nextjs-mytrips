@@ -7,6 +7,7 @@ export const Wrapper = styled.div`
 export const Container = styled.section`
   max-width: var(--container);
   margin: auto;
+  min-height: 100vh;
 `
 
 export const Heading = styled.h1`
@@ -15,7 +16,20 @@ export const Heading = styled.h1`
 `
 
 export const Body = styled.div`
+  margin-bottom: var(--large);
+
   p {
     margin-bottom: var(--medium);
+  }
+`
+
+export const Gallery = styled.div`
+  display: grid;
+  grid-gap: var(--medium);
+
+  img {
+    width: 100%;
+    min-width: 100%;
+    height: auto;
   }
 `
