@@ -31,5 +31,25 @@ export const Gallery = styled.div`
     width: 100%;
     min-width: 100%;
     height: auto;
+
+    background: #f6f7f8;
+    background-image: linear-gradient(
+      to right,
+      #f6f7f8 0%,
+      #cdcee1 20%,
+      #f6f7f8 40%,
+      #f6f7f8 100%
+    );
+    background-size: 80rem 14rem;
+    animation: placeholderShimer 1s linear infinite forwards;
+
+    @keyframes placeholderShimer {
+      0% {
+        background-position: -40rem 0;
+      }
+      100% {
+        background-position: 40rem 0;
+      }
+    }
   }
 `

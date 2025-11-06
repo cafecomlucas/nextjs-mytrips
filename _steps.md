@@ -1339,6 +1339,12 @@ Depois:
 
 ---
 
+## Componente PlaceTemplate | Animação de carregamento
+
+Para aumentar a experiência do usuário (UX) foi adicionada uma animação de fundo nas imagens com um degradê animado que se move de um lado para o outro (`templates/Place/styles.ts`). Essa animação serve como um "placeholder", que aparece enquanto a imagem está carregando.
+
+---
+
 ## Refs adicionais:
 
 [NextJS - Migração do Pages Router pro App Router](https://nextjs.org/docs/pages/guides/migrating/app-router-migration)
