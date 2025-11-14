@@ -8,7 +8,7 @@ Aplicação Front-End + BFF com geração de mapa a partir de dados cadastrados 
 
 - Utiliza a abordagem Jamstack, com o site gerado via NextJS e o conteúdo gerenciado via HyGraph (Headless CMS).
 
-https://rawcdn.githack.com/cafecomlucas/my-places/17b4fb794163e6d2dc20317fd09aba9e75198a4b/.github/.github/my-places.mp4
+https://rawcdn.githack.com/cafecomlucas/my-places/20a03ab911b6e399d5351740c375f58e29b8f4b3/.github/my-places.mp4
 
 \_
 
