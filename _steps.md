@@ -1352,6 +1352,34 @@ Foram feitos ajustes no componente Map para definir o ponto central, o zoom e o 
 
 ---
 
+## Adicionando estilo de mapa alternativo | Mapbox Studio
+
+Para estilização alternativa do mapa foi utilizado o [Mapbox Studio](https://console.mapbox.com/studio/), com ele é possível definir o que vai aparecer no mapa, cores dos territórios, fontes alternativas, etc.
+
+Utilizando a doc de referência uma nova conta foi criada e [configurada](
+https://docs.mapbox.com/help/tutorials/configure-basemap-mapbox-studio/).
+
+Na nova conta foi possível cadastrar um novo [estilo](https://docs.mapbox.com/studio-manual/reference/styles/), que funciona como um template visual personalizavel, com recursos de camadas, tipografia, cores, etc. Em um novo estilo é possível definir os aspectos visuais de:
+- nomes dos lugares;
+- terra/mar;
+- rodovias/ruas;
+- divisões de Estados/Países;
+- etc.
+
+Inspiração para estilos podem ser encontrados na [galeria do Mapbox](https://www.mapbox.com/gallery).
+
+Neste ponto o estilo `blue-map-copy` está pronto na plataforma do Mapbox. Resta fazer a integração com a aplicação "my-trips".
+
+[Mapbox Studio](https://console.mapbox.com/studio/)
+
+[Configurando um mapa (Mapbox Docs)](https://docs.mapbox.com/help/tutorials/configure-basemap-mapbox-studio/)
+
+[Estilos (Mapbox Docs)](https://docs.mapbox.com/studio-manual/reference/styles/)
+
+[Galeria do Mapbox](https://www.mapbox.com/gallery)
+
+---
+
 ## Refs adicionais:
 
 [NextJS - Migração do Pages Router pro App Router](https://nextjs.org/docs/pages/guides/migrating/app-router-migration)
