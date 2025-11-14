@@ -1343,6 +1343,13 @@ Depois:
 
 Para aumentar a experiência do usuário (UX) foi adicionada uma animação de fundo nas imagens com um degradê animado que se move de um lado para o outro (`templates/Place/styles.ts`). Essa animação serve como um "placeholder", que aparece enquanto a imagem está carregando.
 
+
+---
+
+## Componente Map | Ajustes nos tamanhos
+
+Foram feitos ajustes no componente Map para definir o ponto central, o zoom e o tamanho do link de atribuição do Leaflet.
+
 ---
 
 ## Refs adicionais:

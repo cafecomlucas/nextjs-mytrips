@@ -11,24 +11,29 @@ export type Place = {
     longitude: number
   }
 }
-
 export type MapProps = {
   places?: Place[]
 }
+
+const CustomMap = () => (
+  <TileLayer
+    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+  />
+)
+
 const Map = ({ places }: MapProps) => {
   const router = useRouter()
 
   return (
     <MapContainer
       css={styles}
-      center={[-23.5488, -46.6391]}
-      zoom={5}
+      center={[-21.245, -44.999]}
+      zoom={4}
       scrollWheelZoom={true}
     >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
+      <CustomMap />
+
       {places?.map(({ id, name, location, slug }) => {
         const { latitude, longitude } = location
         const href = `/place/${slug}`
