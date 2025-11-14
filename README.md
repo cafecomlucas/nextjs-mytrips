@@ -1,4 +1,4 @@
-# 📱 My Places | CMS + Mapa interativo
+# 🗺️ My Places | CMS + Mapa interativo
 
 Aplicação Front-End + BFF com geração de mapa a partir de dados cadastrados em um CMS. 
 
@@ -8,13 +8,13 @@ Aplicação Front-End + BFF com geração de mapa a partir de dados cadastrados 
 
 - Utiliza a abordagem Jamstack, com o site gerado via NextJS e o conteúdo gerenciado via HyGraph (Headless CMS).
 
-https://rawcdn.githack.com/cafecomlucas/my-places/20a03ab911b6e399d5351740c375f58e29b8f4b3/.github/my-places.mp4
+https://github.com/user-attachments/assets/04a1e810-aa04-499c-8c63-343f995d1d47
 
 \_
 
 ---
 
-## 🛠️ Acesso online
+## 🌐 Acesso online
 
 - [my-places.cafecomlucas.dev](https://my-places.cafecomlucas.dev)
 
