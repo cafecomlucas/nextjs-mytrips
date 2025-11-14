@@ -1418,6 +1418,51 @@ Por fim o componente Map (`components/Map/index.tsx`) é alterado para que  o co
 
 ---
 
+## Mapbox | Redução de custos | Otimizando o número de requisições
+
+O [preço do Mapbox](https://docs.mapbox.com/api/maps/static-tiles/#static-tiles-api-pricing) é definido por requisições na API, sendo que a requisição de até 200.000 `tiles` por mês é gratuíto - passando disso é cobrado $0,50 a cada 1.000 `tiles` gerados.
+
+Na DOC existem estratégias para [diminuir o número de requisições](https://docs.mapbox.com/api/maps/static-tiles/#manage-static-tiles-api-costs), como:
+
+- aumentar o tamanho do `tile` padrão;
+- ajustar o zoom aplicado.
+
+O `tile` padrão do Leaflet é de 256x256, então em um pedaço do mapa que possui 1024x1024 são utilizados 16 requisições:
+
+```sh
+256 | 256 | 256 | 256
+────|─────|─────|─────
+256 | 256 | 256 | 256
+────|─────|─────|─────
+256 | 256 | 256 | 256
+────|─────|─────|─────
+256 | 256 | 256 | 256
+```
+
+
+Ou seja, ajustando o tamanho padrão do tile para 512x512, o mesmo pedaço do mapa utiliza apenas 4 requisições:
+
+```sh
+512 | 512 
+────|─────
+512 | 512 
+```
+
+O ajuste do Leaflet foi feito no componente `Map` (Ajustando o `tileSize` para `512` e o zoomOffset para `-1`). O ajuste do Mapbox foi feito no arquivo de config do mapbox (substituindo 256 por 512 na constante `mapBoxUrl`).
+
+Extra: foi configurado para a API do Mapbox retornar uma imagem para telas retina (incluído o `@2x` na constante `mapBoxUrl`) - o que retorna imagens com o dobro do tamanho (1024x1024px), mas que ocupam o espaço padrão (512x512) setato automaticamente pelo Leaflet via CSS.
+
+## Refs:
+
+[Preços do Mapbox](https://docs.mapbox.com/api/maps/static-tiles/#static-tiles-api-pricing)
+
+[Gerenciando os custos da API (Mapbox DOCs)](https://docs.mapbox.com/api/maps/static-tiles/#manage-static-tiles-api-costs)
+
+[Outras formas de gerenciar os custos](https://docs.mapbox.com/help/troubleshooting/manage-web-map-costs/)
+
+
+---
+
 ## Refs adicionais:
 
 [NextJS - Migração do Pages Router pro App Router](https://nextjs.org/docs/pages/guides/migrating/app-router-migration)

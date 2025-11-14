@@ -7,4 +7,4 @@ const mapBox = {
 
 export const mapBoxApiKey = mapBox.apiKey
 
-export const mapBoxUrl = `${mapBox.host}/${mapBox.userId}/${mapBox.styleId}/tiles/256/{z}/{x}/{y}?access_token=${mapBox.apiKey}`
+export const mapBoxUrl = `${mapBox.host}/${mapBox.userId}/${mapBox.styleId}/tiles/512/{z}/{x}/{y}@2x?access_token=${mapBox.apiKey}`

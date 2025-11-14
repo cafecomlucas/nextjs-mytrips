@@ -21,6 +21,8 @@ const CustomMap = () =>
     <TileLayer
       url={mapBoxUrl}
       attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> © <a href="https://www.mapbox.com/about/maps/">Mapbox</a> <strong><a href="https://labs.mapbox.com/contribute/" target="_blank">Improve this map</a></strong>'
+      tileSize={512}
+      zoomOffset={-1}
     />
   ) : (
     <TileLayer
