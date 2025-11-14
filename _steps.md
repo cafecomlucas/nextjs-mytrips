@@ -1352,7 +1352,7 @@ Foram feitos ajustes no componente Map para definir o ponto central, o zoom e o 
 
 ---
 
-## Adicionando estilo de mapa alternativo | Mapbox Studio
+## Adicionando estilo alternativo pro mapa | Mapbox Studio
 
 Para estilização alternativa do mapa foi utilizado o [Mapbox Studio](https://console.mapbox.com/studio/), com ele é possível definir o que vai aparecer no mapa, cores dos territórios, fontes alternativas, etc.
 
@@ -1370,6 +1370,8 @@ Inspiração para estilos podem ser encontrados na [galeria do Mapbox](https://w
 
 Neste ponto o estilo `blue-map-copy` está pronto na plataforma do Mapbox. Resta fazer a integração com a aplicação "my-trips".
 
+## Refs:
+
 [Mapbox Studio](https://console.mapbox.com/studio/)
 
 [Configurando um mapa (Mapbox Docs)](https://docs.mapbox.com/help/tutorials/configure-basemap-mapbox-studio/)
@@ -1377,6 +1379,42 @@ Neste ponto o estilo `blue-map-copy` está pronto na plataforma do Mapbox. Resta
 [Estilos (Mapbox Docs)](https://docs.mapbox.com/studio-manual/reference/styles/)
 
 [Galeria do Mapbox](https://www.mapbox.com/gallery)
+
+---
+
+## Projeto | Integração do Mapbox e Leaflet
+
+Para integrar os estilos definidos do Mapbox com o mapa gerado utilizando o Leaflet foi necessário atualizar o projeto. 
+
+O Leaflet utiliza o método de "tilemap", onde várias [imagens rasterizadas](https://docs.mapbox.com/api/maps/static-tiles/) compõem a visualização do mapa. Dependendo da posição central e do zoom aplicado, os pedaços do mapa (`tiles`) são requisitados/carregados e se encaixam um no outro, semelhante a um quebra cabeça.
+
+Após publicar o estilo `blue-map-copy`, é possível utilizá-lo dentro do Leaflet chamando a API do Mapbox passando os parâmetros `username`, `style_id`, `tilesize`, `access_token` e o boleano `@2x` (em caso de tela retina). Os parâmetros são obtidos pelo painel do [Mapbox Studio](https://console.mapbox.com/studio/) acessando o estilo e clicando na opção "share".
+
+No projeto foram definidas novas variáveis de ambiente no arquivo `.env.local`. Onde o início com `NEXT_PUBLIC_` indica que são [variáveis de ambiente públicas](https://nextjs.org/docs/pages/guides/environment-variables#bundling-environment-variables-for-the-browser) e ficam disposíveis não só do lado do servidor (node.js), mas também do lado do cliente (browser):
+
+```env
+...
+
+NEXT_PUBLIC_MAPBOX_HOST=https://api.mapbox.com/styles/v1
+
+NEXT_PUBLIC_MAPBOX_USERID=cafecomlucas
+
+NEXT_PUBLIC_MAPBOX_STYLEID=cmhx...
+
+NEXT_PUBLIC_MAPBOX_API_KEY=pk.eyJ1IjoiY...
+```
+
+Os parâmetros definidos nas variáveis de ambiente são configurados/exportados no novo arquivo `config/mapbox.ts`.
+
+Por fim o componente Map (`components/Map/index.tsx`) é alterado para que  o componente `TileLayer` utilize o mapa do Mapbox apenas se a variável `mapBoxApiKey` estiver preenchida, do contrário o mapa padrão do Leaflet é utilizado. A [referência dos estilos](https://docs.mapbox.com/studio-manual/guides/publish-your-style/#leaflet) na DOC do Mapbox é um pouco diferente pois o Leaflet está sendo utilizado através do `React Leaflet`, então foi necessário ajustar de acordo com esse contexto (por exemplo: a definição de parâmetros `url` e `attribution` via props ao invés de argumentos do método `L.tileLayer`).
+
+## Refs:
+
+[Imagens estáticas (Mapbox DOCs)](https://docs.mapbox.com/api/maps/static-tiles/)
+
+[Usando um estilo do Mapbox no Leaflet (Mapbox DOCs)](https://docs.mapbox.com/studio-manual/guides/publish-your-style/#leaflet)
+
+[Variáveis de ambiente públicas (NextJS DOCs)](https://nextjs.org/docs/pages/guides/environment-variables#bundling-environment-variables-for-the-browser)
 
 ---
 

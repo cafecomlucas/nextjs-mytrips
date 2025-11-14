@@ -1,6 +1,7 @@
 import { MapContainer, Marker, TileLayer } from 'react-leaflet'
 import styles from './styles'
 import { useRouter } from 'next/router'
+import { mapBoxApiKey, mapBoxUrl } from '@/config/mapbox'
 
 export type Place = {
   id: string
@@ -15,12 +16,18 @@ export type MapProps = {
   places?: Place[]
 }
 
-const CustomMap = () => (
-  <TileLayer
-    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-  />
-)
+const CustomMap = () =>
+  mapBoxApiKey ? (
+    <TileLayer
+      url={mapBoxUrl}
+      attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> © <a href="https://www.mapbox.com/about/maps/">Mapbox</a> <strong><a href="https://labs.mapbox.com/contribute/" target="_blank">Improve this map</a></strong>'
+    />
+  ) : (
+    <TileLayer
+      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+    />
+  )
 
 const Map = ({ places }: MapProps) => {
   const router = useRouter()

@@ -24,6 +24,7 @@
       "@/components/*": ["components/*"],
       "@/templates/*": ["templates/*"],
       "@/graphql/*": ["graphql/*"],
+      "@/config/*": ["config/*"],
     }
   },
   "include": [
