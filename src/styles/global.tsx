@@ -2,7 +2,7 @@ import { css, Global } from '@emotion/react'
 
 const resetStyles = css`
   :root {
-    --highlight: #e20e8d;
+    --highlight: #74b1de;
     --background: #030518;
     --white: #eee;
 

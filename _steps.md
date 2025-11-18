@@ -1463,6 +1463,32 @@ Extra: foi configurado para a API do Mapbox retornar uma imagem para telas retin
 
 ---
 
+## Projeto | UX | Melhorando a usabilidade com uma barra de progresso
+
+Ao navegar entre uma página e outra não era possível saber se a interação tinha funcionado ou não. Era necessário melhorar a experiência do usuário (UX) - para isso foi adicionada uma pequena biblioteca chamada [NProgress](https://ricostacruz.com/nprogress/), que exibe automaticamente uma barra de progresso no topo de todas as páginas.
+
+Como o projeto está com o NextJS, ao invés de utilizar a lib NProgress diretamente, foi utilizada a lib [nextjs-progressbar](https://www.npmjs.com/package/nextjs-progressbar), que funciona como um Wrapper do Nprogress original, deixando ele compatível com o NextJS (ou seja, pode ser adicionado/configurado através de um componente).
+
+Instalação do nextjs-progressbar:
+```sh
+yarn add nextjs-progressbar
+```
+
+Após a instalação, o nível mais alto da aplicação (`_app.tsx`) foi alterado para incluir a barra de progresso antes do conteúdo.
+
+Neste ponto, ao navegar entre as páginas uma barra de progresso é preenchida automáticamente e desaparece - isso dá um feedback do que está acontecendo, o que melhora a experiência do usuário.
+
+## Refs:
+
+[NProgress (site)](https://ricostacruz.com/nprogress/)
+
+[NProgress (Github)](https://github.com/rstacruz/nprogress)
+
+[nextjs-progressbar (NPM)](https://www.npmjs.com/package/nextjs-progressbar)
+
+
+---
+
 ## Refs adicionais:
 
 [NextJS - Migração do Pages Router pro App Router](https://nextjs.org/docs/pages/guides/migrating/app-router-migration)
