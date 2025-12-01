@@ -1486,6 +1486,31 @@ Neste ponto, ao navegar entre as páginas uma barra de progresso é preenchida a
 
 [nextjs-progressbar (NPM)](https://www.npmjs.com/package/nextjs-progressbar)
 
+---
+
+## SEO | Config padrão para os mecanismos de busca 
+
+Para melhorar a encontrabilidade do site, foi o utilizado o plugin [next-seo](https://github.com/garmeeh/next-seo/tree/main/src/pages), que facilita a definição das meta informações.
+
+Obs: Pela indicação do README atual, a referência foi a doc mais antiga do Next SEO, pois neste ponto da aplicação o projeto utiliza o Router antigo do Next.js (ou seja, utiliza o Pages Router ao invés do App Router).
+
+Instalação:
+```sh
+yarn add next-seo
+```
+
+Seguindo a documentação, foram feitas as modificações:
+- Criação do arquivo de configuração (`next-seo.config.ts`)
+- Definição das meta infos padrão (as comuns e as espefícicas pro Facebook/Opengraph)
+- Importação/implementação das meta infos no componente `_app`
+- Remoção das meta infos antigas do componente `_document`
+- Adicional: devido um alerta do TypeScript, foi necessário fazer um ajuste na config (`tsconfig.json`) para aceitar o jeito que o Next SEO exporta os tipos ([Module Resolution](https://www.typescriptlang.org/tsconfig/#moduleResolution))
+
+
+## Refs:
+
+[Next SEO (GitHub)](https://github.com/garmeeh/next-seo/tree/main/src/pages)
+[Module Resolution (TypeScript DOCs)](https://www.typescriptlang.org/tsconfig/#moduleResolution) 
 
 ---
 
