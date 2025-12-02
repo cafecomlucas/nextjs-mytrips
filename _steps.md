@@ -1514,6 +1514,33 @@ Seguindo a documentação, foram feitas as modificações:
 
 ---
 
+## SEO | Config para mecanismos de busca nas páginas internas
+
+O SEO foi definido nos componentes da página inicial (`HomeTemplate`) e das páginas internas de cada lugar (`PlaceTemplate`).
+
+O componente `HomeTemplate` foi modificado para implementar a descrição das meta infos da página inicial.
+
+O componente `PlaceTemplate` também foi modificado para implementar as meta infos de acordo com os dados recebidos do HyGraph via props. Foi necessário:
+
+- ajustar o template do meta título na config do Next SEO padrão (resultando no padrão `{name} | My Places`);
+- definir o meta título do `PlaceTemplate` com o atributo `name` (que utiliza o template do Next SEO)
+- adicionar atributos `description.text` (para a meta descrição), `gallery.width` e `gallery.height` (para o tamanho da meta imagem definida pro Facebook/OpenGraph)
+- adicionar tipagem no `PlaceTemplateProps` para os novos atributos
+- modificar as queries do GraphQL para retornar os novos atributos necessários
+- gerar tipagem automática das queries via codegen (`yarn codegen`)
+
+Obs 01: no arquivo de queries também foram removidas propriedades que não estavam sendo utilizadas.
+
+Obs 02: As infos de meta títulos/descrições comuns servem como referência para definir esses mesmos meta dados pro Facebook/Opengraph automaticamente.
+
+Neste ponto os meta dados são gerados/exibidos dentro da tag `head` de cada página ao inspencionar o código fonte. 
+
+## Refs:
+
+[Propriedades comuns - Next SEO DOCs](https://github.com/garmeeh/next-seo/tree/main/src/pages#common-props)
+
+---
+
 ## Refs adicionais:
 
 [NextJS - Migração do Pages Router pro App Router](https://nextjs.org/docs/pages/guides/migrating/app-router-migration)

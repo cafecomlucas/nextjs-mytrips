@@ -1,7 +1,7 @@
 import type { DefaultSeoProps } from 'next-seo/pages'
 
 export const DEFAULT_SEO: DefaultSeoProps = {
-  titleTemplate: 'My Places | %s',
+  titleTemplate: '%s | My Places',
   defaultTitle: 'My Places',
   description: 'A simple project to show my favorite spots in the world.',
   canonical: 'https://my-places.cafecomlucas.dev/',

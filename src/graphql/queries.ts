@@ -33,14 +33,6 @@ export const GET_PLACES = gql`
         latitude
         longitude
       }
-      description {
-        html
-      }
-      gallery {
-        url
-        width
-        height
-      }
     }
   }
 `
@@ -51,9 +43,12 @@ export const GET_PLACE_BY_SLUG = gql`
       name
       description {
         html
+        text
       }
       gallery {
         url
+        width
+        height
       }
     }
   }
