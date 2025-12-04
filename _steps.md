@@ -1204,7 +1204,7 @@ Para adicionar o link para as páginas internas o Componente `Map` foi alterado:
 
 Neste ponto da aplicação, ao clicar em um pin/marker é feito o redirecionamento para página interna (404, pois falta a integração com as páginas internas).
 
-## Refs:
+### Refs:
 
 [React Leaflet DOCs - Events](https://react-leaflet.js.org/docs/example-events/)
 
@@ -1331,7 +1331,7 @@ Depois:
 - Economia de 6.72 segundos
 
 
-## Refs:
+### Refs:
 
 [FCP - First Contentful Paint](https://developer.chrome.com/docs/lighthouse/performance/first-contentful-paint)
 [LCP - Large Contentful Paint](https://web.dev/articles/lcp)
@@ -1370,7 +1370,7 @@ Inspiração para estilos podem ser encontrados na [galeria do Mapbox](https://w
 
 Neste ponto o estilo `blue-map-copy` está pronto na plataforma do Mapbox. Resta fazer a integração com a aplicação "my-trips".
 
-## Refs:
+### Refs:
 
 [Mapbox Studio](https://console.mapbox.com/studio/)
 
@@ -1408,7 +1408,7 @@ Os parâmetros definidos nas variáveis de ambiente são configurados/exportados
 
 Por fim o componente Map (`components/Map/index.tsx`) é alterado para que  o componente `TileLayer` utilize o mapa do Mapbox apenas se a variável `mapBoxApiKey` estiver preenchida, do contrário o mapa padrão do Leaflet é utilizado. A [referência dos estilos](https://docs.mapbox.com/studio-manual/guides/publish-your-style/#leaflet) na DOC do Mapbox é um pouco diferente pois o Leaflet está sendo utilizado através do `React Leaflet`, então foi necessário ajustar de acordo com esse contexto (por exemplo: a definição de parâmetros `url` e `attribution` via props ao invés de argumentos do método `L.tileLayer`).
 
-## Refs:
+### Refs:
 
 [Imagens estáticas (Mapbox DOCs)](https://docs.mapbox.com/api/maps/static-tiles/)
 
@@ -1452,7 +1452,7 @@ O ajuste do Leaflet foi feito no componente `Map` (Ajustando o `tileSize` para `
 
 Extra: foi configurado para a API do Mapbox retornar uma imagem para telas retina (incluído o `@2x` na constante `mapBoxUrl`) - o que retorna imagens com o dobro do tamanho (1024x1024px), mas que ocupam o espaço padrão (512x512) setato automaticamente pelo Leaflet via CSS.
 
-## Refs:
+### Refs:
 
 [Preços do Mapbox](https://docs.mapbox.com/api/maps/static-tiles/#static-tiles-api-pricing)
 
@@ -1478,7 +1478,7 @@ Após a instalação, o nível mais alto da aplicação (`_app.tsx`) foi alterad
 
 Neste ponto, ao navegar entre as páginas uma barra de progresso é preenchida automáticamente e desaparece - isso dá um feedback do que está acontecendo, o que melhora a experiência do usuário.
 
-## Refs:
+### Refs:
 
 [NProgress (site)](https://ricostacruz.com/nprogress/)
 
@@ -1507,7 +1507,7 @@ Seguindo a documentação, foram feitas as modificações:
 - Adicional: devido um alerta do TypeScript, foi necessário fazer um ajuste na config (`tsconfig.json`) para aceitar o jeito que o Next SEO exporta os tipos ([Module Resolution](https://www.typescriptlang.org/tsconfig/#moduleResolution))
 
 
-## Refs:
+### Refs:
 
 [Next SEO (GitHub)](https://github.com/garmeeh/next-seo/tree/main/src/pages)
 [Module Resolution (TypeScript DOCs)](https://www.typescriptlang.org/tsconfig/#moduleResolution) 
@@ -1535,11 +1535,230 @@ Obs 02: As infos de meta títulos/descrições comuns servem como referência pa
 
 Neste ponto os meta dados são gerados/exibidos dentro da tag `head` de cada página ao inspencionar o código fonte. 
 
-## Refs:
+### Refs:
 
 [Propriedades comuns - Next SEO DOCs](https://github.com/garmeeh/next-seo/tree/main/src/pages#common-props)
 
 ---
+
+## Conceitos de Server Side com o Next | SSR | SSG | ISR
+
+### SSR - Server Side Rendeding
+
+Renderização do lado do servidor: É baseado no jeito tradicional de renderização, que retorna páginas dinâmicas, onde o cliente faz uma requisição pro servidor e o servidor processa o html logo antes de enviar (em tempo de execução - runtime). Este é um modelo utilizado também em outras linguagens como PHP, Ruby, Phyton.
+
+Como a renderização é feita no servidor, os bots dos mecânismos de busca recebem exatamente o que precisam, o que é melhor para o SEO. Já em aplicações SPA (Single Page Application) por exemplo, boa parte do processamento é feita do lado do cliente, o que deixa a indexação/SEO pior.
+
+A desvantagem é que o processamento envolve consultas ao banco de dados e a renderização dos arquivos dinâmicos enquanto o cliente aguarda a finalização (leva mais tempo).
+
+Exemplo:
+
+```
+SSR - SERVER SIDE RENDERING (RUNTIME)           
+                                          
+┌────────┐           ┌─────────────┐        ┌────┐              
+│ CLIENT │           │   SERVER    │        │ DB │              
+│        ├──────────►│  ┌──────┐   │        │    │              
+│        │           │  │ NEXT ├───│───────►│    │              
+│        │           │  │      │◄──│────────│    │              
+│        │           │  └──────┘   │        │    │              
+└────────┘           │     │       │        │    │              
+    ▲                │     ▼       │        └────┘              
+    │                │ ┌─────────┐ │                            
+    │                │ │ DYNAMIC │ │                            
+    │                │ └─────────┘ │                            
+    │                └─────┼───────┘                            
+    │                      │                                   
+    │                      │                                   
+    └──────────────────────┘                                     
+```
+
+### SSG - Static Site Generation
+
+Geração de Site Estático: Surgiu como uma maneira de otimizar o tempo de resposta pro cliente, mantendo a qualidade do SEO. Todo o processamento (consulta a banco de dados / criação dos arquivos estáticos) é feito antes mesmo do cliente realizar qualquer requisição. Os arquivos são gerados em tempo de compilação (buildtime). Então quando a requisição ocorre os estáticos já estão prontos (pré-renderizados), o que melhora o tempo de resposta (quase instântaneo) e a experiência do usuário (UX). 
+
+Nesse modo os estáticos gerados podem até mesmo movidos para outro servidor, pois passam a existir independente da requisição direta do cliente.
+
+Outros geradores estáticos que utilizam essa abordagem são: Jenkyll, Hugo, Gatsby, etc.
+
+A desvantagem é que alterações no banco de dados não geram novos estáticos automaticamente e o comando para um novo `BUILD` precisa ser feito manualmente (e posso **esquecer**) - nesse cenário, a alteração do preço de um produto que não foi feita pode trazer prejuízo, por exemplo. 
+
+Além disso, mesmo com um `trigger`/`webhook` configurado no servidor para fazer um novo `BUILD` após uma atualização no banco, todos os estáticos são regerados, e quanto mais estáticos passarem a existir, maior o tempo de compilação, já que todos os arquivos são compilados novamente (mesmo os não atualizados), o que consome cada vez mais recursos do servidor.
+
+Exemplo:
+
+```
+SSG - STATIC SITE GENERATION (BUILDTIME)
+
+                                   ┌───────┐                   
+                                   │ BUILD │                   
+                                   └───────┘                   
+                                       │                       
+                                       ▼                       
+┌────────┐                       ┌────────────┐        ┌────┐  
+│ CLIENT │                       │   SERVER   │        │ DB │  
+│        ├────────────┐          │  ┌──────┐  │        │    │  
+│        │            │          │  │ NEXT ├──│───────►│    │  
+│        │            │          │  │      │◄─│────────│    │  
+│        │            │          │  └──────┘  │        │    │  
+└────────┘            │          │     │      │        │    │  
+    ▲                 │          │     │      │        └────┘  
+    │                 ▼          │     │      │                
+    │              ┌──────┐      │     │      │                
+    └──────────────│STATIC│◄─────│─────┘      │                
+                   └──────┘      └────────────┘                
+```
+
+
+### ISR - Incremental Static Regeneration
+
+Surgiu como uma maneira de otimizar o tempo de compilação dos estáticos. Essa abordagem une o melhor da renderização em tempo de execução (runtime) e o melhor da renderização em tempo de compilação (buildtime).
+
+É feita uma compilação inicial (buildtime) com apenas alguns estáticos e os estáticos seguintes são gerados quando o cliente faz uma requisição para o servidor.
+
+Caso o estático já exista o mesmo é entregue para o cliente. Caso não exista ainda, um estático de página inexistente (404) é retornada e a geração do estático é iniciada em paralelo - ou seja, o cliente continua recebendo apenas estáticos e não precisa aguardar processamentos feitos no servidor. Para essa abordagem funcionar a requisição precisa ser feita diretamente servidor onde os estáticos são gerados - ou seja, os estáticos não podem ser movidos pra outro servidor.
+
+Obs: no gráfico abaixo, fica assumido que quando a página não existe é apenas estático dela, mas os dados dela existem no banco e por isso ela precisa ser gerada. No fluxo completo essa verificação é adicionada.
+
+Exemplo:
+```
+ISR - INCREMENTAL STATIC REGENERATION (RUNTIME + BUILDTIME)
+
+                                   ┌───────┐                   
+                                   │ BUILD │                   
+                                   └───────┘                   
+                                       │                       
+                                       ▼                       
+┌────────┐                      ┌──────────────┐       ┌────┐  
+│ CLIENT │                      │    SERVER    │       │ DB │  
+│        │─────────────────────►│   ┌──────┐   │       │    │  
+│        │                      │   │ NEXT ├───│──────►│    │  
+│        │                      │   │      │◄──│───────│    │  
+│        │                      │   └──────┘   │       │    │  
+└────────┘                      │      │       │       │    │  
+    ▲  ▲                        │ PAGE EXISTS? │       └────┘  
+    │  │                        │  YES    NO   │               
+    │  │           ┌──────┐     │   │     │    │               
+    │  └───────────┤STATIC│◄────│───┘  ┌─────┐ │               
+    │              └──────┘     │      │BUILD│ │               
+    │                           │      └─────┘ │               
+    │                           │         │    │              
+    │                           └──────────────┘               
+    │              ┌─────┐                │                    
+    └──────────────┤ 404 │◄───────────────┘                    
+                   └─────┘                                     
+
+```
+
+#### ISR: Revalidate
+
+Para lidar com páginas que precisam ser regeradas de tempos em tempos é utilizado o atributo `revalidate`, que armazena de quanto em quanto tempo a página precisa ser gerada novamente, caso existam dados atualizados.
+
+Se o estático da página ainda não existir, mas existe no banco e precisa ser gerada, segue o mesmo fluxo anterior.
+
+Agora, quando a página já existe e precisa ser gerada novamente (dados atualizados no banco) é necessário verificar o tempo do `revalidate`. Se o `revalidate` expirar, o estático antigo é entregue pro cliente e a regeração (`REBUILD`) do novo estático é iniciado - ou seja, na próxima vez que o cliente acessar o estático, ele já vai estar atualizado.
+
+Obs: no gráfico abaixo, fica assumido que quando a página não existe é apenas estático dela, mas os dados dela existem no banco e por isso ela precisa ser gerada. No fluxo completo essa verificação é adicionada.
+
+Exemplo:
+```
+ISR: REVALIDATE
+                                   ┌───────┐                         
+                                   │ BUILD │                         
+                                   └───────┘                         
+                                       │                             
+                                       ▼                             
+┌────────┐                      ┌───────────────────┐        ┌────┐  
+│ CLIENT │                      │    SERVER         │        │ DB │  
+│        │─────────────────────►│   ┌──────┐        │        │    │  
+│        │                      │   │ NEXT ├────────│───────►│    │  
+│        │                      │   │      │◄───────│────────┤    │  
+│        │                      │   └──────┘        │        │    │  
+└────────┘                      │      │            │        │    │  
+    ▲  ▲                        │ PAGE EXISTS?      │        └────┘  
+    │  │                        │  YES    NO ─────┐ │                
+    │  │           ┌──────┐     │   │             │ │                
+    │  └───────────┤STATIC│     │   │             │ │                
+    │              └──────┘     │ REVALIDATE?     │ │                
+    │               ▲ ▲         │  NO    YES      ▼ │                
+    │               │ │         │   │    ││  ┌─────┐│                
+    │               │ └─────────│───┘    ││  │BUILD││                
+    │               └───────────│────────┘│  └─────┘│                
+    │                           │         ▼       │ │                
+    │                           │     ┌───────┐   │ │                
+    │                           │     │REBUILD│   │ │                
+    │                           │     └───────┘   │ │                
+    │              ┌─────┐      └───────────────────┘                
+    └──────────────┤ 404 │◄───────────────────────┘                  
+                   └─────┘                                           
+```
+
+
+#### ISR: Fallback
+
+Quando o estático da página ainda não existe, mas é necessário gerar a mesma (existe no banco), então é feito um `BUILD`. Nesse caso, como a página não existe (ainda) e o cliente recebe um estático, o retorno seria o estático de página inexistente (404).
+
+Para lidar com isso é utilizado o recurso de `fallback`, que serve para mostrar um conteúdo alternativo (uma tela de "Carregando..." por exemplo) até que a compilação do estático termine.
+
+Exemplo do fluxo completo:
+```
+ISR: FALLBACK
+                            ┌───────┐                            
+                            │ BUILD │                            
+                            └───────┘                            
+                                │                                
+                                ▼                                
+┌────────┐               ┌─────────────────────────────┐   ┌────┐
+│ CLIENT │               │    SERVER                   │   │ DB │
+│        │──────────────►│   ┌───────────────┐         │   │    │
+│        │               │   │ NEXT          │ ────────│─► │    │
+│        │               │   │               │ ◄───────│───│    │
+│        │               │   └───────────────┘         │   │    │
+└────────┘               │       │                     │   │    │
+ ▲  ▲  ▲                 │     PAGE EXISTS?            │   └────┘
+ │  │  │                 │   ┌──YES    NO───┐          │         
+ │  │  │    ┌──────┐     │   │              │          │         
+ │  │  └────┤STATIC│     │   │              │          │         
+ │  │       └──────┘     │ REVALIDATE?    DATA EXISTS? │         
+ │  │        ▲  ▲ ▲      │  NO    YES      YES    NO   │         
+ │  │        │  │ │      │   │    ││        │      │   │         
+ │  │        │  │ └──────│───┘    ││        │      │   │         
+ │  │        │  └────────│────────┘│        │      │   │         
+ │  │        │           │         ▼        │      │   │         
+ │  │        │           │   ┌───────┐  ┌─────┐    │   │         
+ │  │        │           │   │REBUILD│  │BUILD│    │   │         
+ │  │        │           │   └───────┘  └─────┘    │   │         
+ │  │    ┌─► BUILD       │                  │      │   │         
+ │  │    │    DONE       │             FALLBACK?   │   │         
+ │  │    │               │              YES  NO    │   │         
+ │  │   ┌──────────┐     │               │   │     │   │         
+ │  └───┤ FALLBACK │◄────│───────────────┘   │     │   │         
+ │      └──────────┘     │                   │     │   │         
+ │                       └─────────────────────────────┘         
+ │                                           │     │             
+ │          ┌─────┐                          │     │             
+ │          │     │◄─────────────────────────┘     │             
+ └──────────┤ 404 │◄───────────────────────────────┘             
+            │     │                                              
+            └─────┘                                              
+```
+
+### Refs:
+
+[ASCIIFlow - criação de desenhos em ASCII](https://asciiflow.com/)
+
+[Jekyll - Gerador de sites baseado em texto](https://jekyllrb.com/)
+
+[Gatsby - Gerador de sites baseado em React](https://www.gatsbyjs.com/)
+
+[Hugo - Gerador de sites baseado em Go](https://gohugo.io/)
+
+[Lista JAMStack - Outros geradores de site](https://jamstack.org/generators/)
+
+
+---
+
+
 
 ## Refs adicionais:
 
