@@ -15,6 +15,7 @@ export const getStaticProps: GetStaticProps = async () => {
   })
 
   return {
+    revalidate: 43200,
     props: {
       places: data?.places
     }

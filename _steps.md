@@ -1756,6 +1756,28 @@ ISR: FALLBACK
 [Lista JAMStack - Outros geradores de site](https://jamstack.org/generators/)
 
 
+## Página Home | ISR: Revalidate
+
+Na página inicial foi aplicado o `revalidate`, que funciona quando a página já existe e os dados passaram por uma atualização, mas a página ainda não reflete essa alteração. Foi definido o tempo de 12 horas (43200ms) para revalidação. 
+
+Então se passar de 12 horas e os dados de `props` em cache forem:
+
+- Iguais aos dados consultados (`GET_PLACES`);
+  - Apenas entrega o estático que já estava em cache;
+- Diferentes aos dados consultados (`GET_PLACES`);
+  - Entrega o estático que já estava em cache pra requisição atual;
+  - Em paralelo atualiza o estático com os novos dados pra próxima requisição.
+
+
+Ou, se não passar de 12 horas:
+
+- Apenas entrega o estático que já estava em cache.
+
+
+### Refs:
+
+[How to implement ISR (NextJS Docs)](https://nextjs.org/docs/pages/guides/incremental-static-regeneration)
+
 ---
 
 
