@@ -1800,6 +1800,16 @@ No método `getStaticPaths` o `fallback` foi setado como `true` no retorno e no 
 
 ---
 
+## Página Place | Otimizando build
+
+Para otimizar o build de todas as páginas `Place` internas, a query que busca todos os lugares (`GET_PLACES`) foi atualizada para retornar apenas o primeiro item (`first: 1`).
+
+Assim, quando o projeto for compilado pra produção (com `yarn build`) apenas um local será compilado/pré-renderizado. Os demais locais vão ser gerados via demanda, conforme os usuários requisitarem as páginas.
+
+A tipagem automática do retorno da query (`GetPlaceBySlugQuery`) foi atualizada através do codegen (`yarn codegen`).
+
+---
+
 
 
 ## Refs adicionais:

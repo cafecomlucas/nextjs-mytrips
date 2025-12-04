@@ -21,7 +21,8 @@ const Place = ({ place }: PlaceTemplateProps) => {
 export const getStaticPaths: GetStaticPaths = async () => {
   const client = createApolloClient()
   const { data } = await client.query<GetPlacesQuery>({
-    query: GET_PLACES
+    query: GET_PLACES,
+    variables: { first: 1 }
   })
 
   let paths
