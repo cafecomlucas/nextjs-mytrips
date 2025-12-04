@@ -8,7 +8,13 @@ import {
 import createApolloClient from '@/graphql/client'
 import { GET_PLACES, GET_PLACE_BY_SLUG } from '@/graphql/queries'
 
+import { useRouter } from 'next/router'
+
 const Place = ({ place }: PlaceTemplateProps) => {
+  const router = useRouter()
+
+  if (router.isFallback) return null
+
   return <PlaceTemplate place={place} />
 }
 
@@ -27,7 +33,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths = [{ params: { slug: '' } }]
   }
 
-  return { paths, fallback: false }
+  return { paths, fallback: true }
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {

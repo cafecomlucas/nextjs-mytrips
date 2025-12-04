@@ -1788,6 +1788,18 @@ Quando os dados existem e a página ainda não existe, a página é gerada, mas 
 
 ---
 
+## Página Place | ISR: Fallback
+
+Para quando a página ainda não existe foi adicionada a configuração de Fallback, que pode retornar uma página em branco ou um loading quando definido.
+
+No método `getStaticPaths` o `fallback` foi setado como `true` no retorno e no componente `Place` o hook `useRouter` é utilizad pra verificar se o fallback está ativo (`router.isFallback`) - se estiver retorna uma página em branco (`null`) enquanto gera a página e direciona pra página nova assim que ela termina de ser gerada.
+
+### Refs:
+
+[How to implement ISR (NextJS Docs)](https://nextjs.org/docs/pages/guides/incremental-static-regeneration)
+
+---
+
 
 
 ## Refs adicionais:
