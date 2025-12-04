@@ -1780,6 +1780,14 @@ Ou, se não passar de 12 horas:
 
 ---
 
+## Página Place | ISR: Revalidate
+
+Semelhante ao que foi feito na página inicial, o `revalidate` foi aplicado pra página interna `Place`, que após 12 horas verifica quando a página já existe e os dados em cache são diferentes dos dados do banco, e faz a atualização da página estática quando for o caso.
+
+Quando os dados existem e a página ainda não existe, a página é gerada, mas o retorno pra requisição atual é uma de página inexistente (404), sendo exibida normalmente na requisição seguinte. Para corrigir esse detalhe a seguir é utilizado o Fallback.
+
+---
+
 
 
 ## Refs adicionais:
