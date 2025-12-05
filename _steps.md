@@ -1810,7 +1810,13 @@ A tipagem automática do retorno da query (`GetPlaceBySlugQuery`) foi atualizada
 
 ---
 
+## Componente Map | Ajustes | Cor de fundo
 
+Para melhorar a visualização do mapa foi necessário trocar o fundo cinza que estava tinha muito contraste em relação ao mapa (era possível perceber isso quando o mapa estava pequeno, ao diminuir o zoom).
+
+No estilo da classe `.leaflet-container` foi adicionada a cor de background padrão (mais escura), o que melhorou a visualização do mapa.
+
+---
 
 ## Refs adicionais:
 
