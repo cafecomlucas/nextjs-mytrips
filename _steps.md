@@ -1818,6 +1818,16 @@ No estilo da classe `.leaflet-container` foi adicionada a cor de background padr
 
 ---
 
+## Componente Map | Ajustes | Limite de zoom
+
+Ao diminuir todo o zoom o mapa ficava muito pequeno e as faixas do background apareciam em cima e em baixo.
+
+Para ajustar isso foi definido um zoom mínimo através da propriedade `minZoom` na criação do mapa.
+
+[minZoom (Leaflet DOCs)](https://leafletjs.com/reference.html#map-minzoom)
+
+---
+
 ## Refs adicionais:
 
 [NextJS - Migração do Pages Router pro App Router](https://nextjs.org/docs/pages/guides/migrating/app-router-migration)

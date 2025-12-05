@@ -39,6 +39,7 @@ const Map = ({ places }: MapProps) => {
       css={styles}
       center={[-21.245, -44.999]}
       zoom={4}
+      minZoom={2}
       scrollWheelZoom={true}
     >
       <CustomMap />
