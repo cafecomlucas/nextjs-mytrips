@@ -41,6 +41,10 @@ const Map = ({ places }: MapProps) => {
       zoom={4}
       minZoom={2}
       scrollWheelZoom={true}
+      maxBounds={[
+        [-180, 180],
+        [180, -180]
+      ]}
     >
       <CustomMap />
 

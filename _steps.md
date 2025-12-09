@@ -1828,6 +1828,21 @@ Para ajustar isso foi definido um zoom mínimo através da propriedade `minZoom`
 
 ---
 
+## Componente Map | Ajustes | Limite de scroll
+
+Ao arrastar o mapa para os lados o mesmo mapa aparecia infinitamente, mas sem os pins/markers. E ao arrastar para cima/para baixo ocorria um espaçamento grande pois o mapa só é replicado na horizontal e não na vertical.
+
+Para lidar com isso foi utilizada a prop `maxBounds`, que limita até onde o mapa pode ser arrastado com base na latitude e longitude dos cantos definidos como limite.
+
+Obs: também era possível utilizar a prop `worldCopyJump` para copiar os pins/markers automaticamente ao arrastar o mapa horizontalmente. O problema com essa solução é que o mapa fica "piscando" quando a cópia é feita e o scroll vertical fica infinito.
+
+
+[maxBounds (Leaflet DOCs)](https://leafletjs.com/reference.html#map-maxbounds)
+
+[worldCopyJump (Leaflet DOCs)](https://leafletjs.com/reference.html#map-worldcopyjump)
+
+---
+
 ## Refs adicionais:
 
 [NextJS - Migração do Pages Router pro App Router](https://nextjs.org/docs/pages/guides/migrating/app-router-migration)
