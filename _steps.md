@@ -1824,6 +1824,8 @@ Ao diminuir todo o zoom o mapa ficava muito pequeno e as faixas do background ap
 
 Para ajustar isso foi definido um zoom mínimo através da propriedade `minZoom` na criação do mapa.
 
+### Refs:
+
 [minZoom (Leaflet DOCs)](https://leafletjs.com/reference.html#map-minzoom)
 
 ---
@@ -1836,10 +1838,33 @@ Para lidar com isso foi utilizada a prop `maxBounds`, que limita até onde o map
 
 Obs: também era possível utilizar a prop `worldCopyJump` para copiar os pins/markers automaticamente ao arrastar o mapa horizontalmente. O problema com essa solução é que o mapa fica "piscando" quando a cópia é feita e o scroll vertical fica infinito.
 
+### Refs:
 
 [maxBounds (Leaflet DOCs)](https://leafletjs.com/reference.html#map-maxbounds)
 
 [worldCopyJump (Leaflet DOCs)](https://leafletjs.com/reference.html#map-worldcopyjump)
+
+---
+
+## Componente Map | Ajustes | Responsividade do mapa
+
+Ao acessar o mapa com o tamanho de tela menor (tablet/celular) o zoom mínimo estava muito perto, o que dificultava a navegação. Foi necessário um ajuste para alterar o zoom atual e o zoom minimo de acordo com o tamanho da tela.
+
+No tutorial foi utilizado o antigo `MapConsumer` do React Leaflet, que internamente utiliza a Context API do React, mas na versão atual a utilização da Context API é feita de uma forma diferente, utilizando hooks.
+
+Para acesso ao contexto foi criado um componente customizado chamado `MapContext` que é definido/chamado dentro do `MapContainer` para funcionar. Por ser um componente também precisa ter um retorno (que foi definido como `null`).
+
+Esse novo componente utiliza o hook `useMap` do React Leaflet para setar o zoom atual e o zoom mínimo de acordo com o tamanho da tela. O valor mínimo do zoom foi armazenado na constante `minZoomDefault` utilizando do hook `useRef` do próprio React.
+
+No método `handleResize` o tamanho de tela é obtido e verificado antes de definir os valores. A chamada do método é feita ao inicializar o componente (hook `useEffect` do React) e ao redimensionar a tela (hook `useMapEvents` do React Leaflet) - dessa forma, o mapa já inicializa com os valores corretos (ao carregar a página pela primeira vez) e também reajusta quando necessário (quando o tamanho de tela é alterado).
+
+### Refs:
+
+[hook useMap (React Leaflet DOCs)](https://react-leaflet.js.org/docs/api-map/#usemap)
+
+[hook useMapEvents (React Leaflet DOCs)](https://react-leaflet.js.org/docs/api-map/#usemapevents)
+
+[Context API (React DOCs)](https://react.dev/reference/react/createContext)
 
 ---
 

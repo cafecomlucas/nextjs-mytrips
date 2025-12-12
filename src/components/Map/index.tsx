@@ -1,7 +1,14 @@
-import { MapContainer, Marker, TileLayer } from 'react-leaflet'
+import {
+  MapContainer,
+  Marker,
+  TileLayer,
+  useMap,
+  useMapEvents
+} from 'react-leaflet'
 import styles from './styles'
 import { useRouter } from 'next/router'
 import { mapBoxApiKey, mapBoxUrl } from '@/config/mapbox'
+import { useCallback, useEffect, useRef } from 'react'
 
 export type Place = {
   id: string
@@ -31,6 +38,36 @@ const CustomMap = () =>
     />
   )
 
+const MapContext = () => {
+  const map = useMap()
+  const minZoomDefault = useRef(2)
+
+  const handleResize = useCallback(() => {
+    const width =
+      window.innerWidth ||
+      document.documentElement.clientWidth ||
+      document.body.clientWidth
+
+    if (width < 768 && map.getMinZoom() == minZoomDefault.current) {
+      map.setMinZoom(1)
+      map.setZoom(2)
+    } else if (width >= 768 && map.getMinZoom() != minZoomDefault.current) {
+      map.setMinZoom(minZoomDefault.current)
+      map.setZoom(4)
+    }
+  }, [map])
+
+  useEffect(() => {
+    handleResize()
+  }, [handleResize])
+
+  useMapEvents({
+    resize: handleResize
+  })
+
+  return null
+}
+
 const Map = ({ places }: MapProps) => {
   const router = useRouter()
 
@@ -46,6 +83,7 @@ const Map = ({ places }: MapProps) => {
         [180, -180]
       ]}
     >
+      <MapContext />
       <CustomMap />
 
       {places?.map(({ id, name, location, slug }) => {
