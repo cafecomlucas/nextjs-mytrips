@@ -1888,6 +1888,35 @@ Obs 2: também é possível definir o marker com base no lugar visitado ou não 
 
 ---
 
+## Métricas | Configurando o Google Analytics
+
+Para gerar relatórios do site foi utilizado o Google Analytics, que permite medir número de usuários, de onde vieram os acessos, os países que acessaram, etc.
+
+Foi criada uma nova conta no [site principal](https://analytics.google.com/) e configurada uma nova propriedade - que gerou um script do Google tag para ser adicionado ao projeto.
+
+No projeto foi criado um novo componente chamado `Analytics` que serve para guardar o script do Google tag com o código de configuração armazenado nas variáveis de ambiente. Foi criado um novo arquivo chamado `.env.production` (ignorado pelo git).
+
+No componente `Analytics` também foi necessário setar o Javascript do Google Analytics dentro da prop `dangerouslySetInnerHTML` por ser um projeto em Next.
+
+No arquivo `_document.tsx` foi importado o componente `Analytics`. A importação no `_document` garante que a configuração esteja disponível em todas as páginas (já que ele é renderizado apenas no servidor).
+
+Também foi necessário adicionar a variável de ambiente `NEXT_PUBLIC_GA_TRACKING` na configuração da infra online (na Vercel) .
+
+Com a configuração feita e os arquivos no ar foi possível verificar a instalação pelo site Google Analytics.
+
+Obs: o Google Analytics atualmente já analisa vários recursos automaticamente, para recursos mais avançados e configurações mais customizadas de eventos existem outras ferramentas, como o antigo [react-ga](https://github.com/react-ga/react-ga).
+
+### Refs:
+
+[Como configurar o Google Analytics (DOCs)](https://support.google.com/analytics/answer/9304153?hl=pt-br)
+
+[Google Analytics - Página principal](https://analytics.google.com/)
+
+[react-ga](https://github.com/react-ga/react-ga).
+
+
+---
+
 ## Refs adicionais:
 
 [NextJS - Migração do Pages Router pro App Router](https://nextjs.org/docs/pages/guides/migrating/app-router-migration)
