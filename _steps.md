@@ -1868,6 +1868,26 @@ No método `handleResize` o tamanho de tela é obtido e verificado antes de defi
 
 ---
 
+## Componente Map | Ajustes | Alteração dos markers/pins
+
+Para modificar os markers/pins padrões foi necessário criar um novo objeto do tipo ícone da lib Leaflet, para isso o próprio Leaflet foi importado (`L`) e o novo ícone foi instânciado (`L.icon`).
+
+O novo ícone instânciado foi passado como prop pro componente `Marker` do React Leaflet.
+
+Neste ponto o novo ícone já aparece no lugar do antigo.
+
+Obs 1: na definição da imagem importada algumas libs podem usar o `require('img/...')`, mas no contexto dessa aplicação o `Next.js` já resolve essas importações sem precisar chamar o `require`.
+
+Obs 2: também é possível definir o marker com base no lugar visitado ou não visitado - bastaria criar um novo campo no CMS e utilizar a nova prop pra essa definição.
+
+### Refs:
+
+[Custom Icons (Leaflet DOCs)](https://leafletjs.com/examples/custom-icons/)
+
+[Marker Props (React Leaflet DOCs)](https://react-leaflet.js.org/docs/api-components/#marker)
+
+---
+
 ## Refs adicionais:
 
 [NextJS - Migração do Pages Router pro App Router](https://nextjs.org/docs/pages/guides/migrating/app-router-migration)

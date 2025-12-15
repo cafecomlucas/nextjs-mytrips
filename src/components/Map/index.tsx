@@ -1,3 +1,4 @@
+import L from 'leaflet'
 import {
   MapContainer,
   Marker,
@@ -68,6 +69,12 @@ const MapContext = () => {
   return null
 }
 
+const markerIcon = new L.Icon({
+  iconUrl: 'img/marker-icon.png',
+  iconSize: [32, 32],
+  iconAnchor: [3, 34]
+})
+
 const Map = ({ places }: MapProps) => {
   const router = useRouter()
 
@@ -98,6 +105,7 @@ const Map = ({ places }: MapProps) => {
             position={[latitude, longitude]}
             title={name}
             eventHandlers={{ click: HandleClick }}
+            icon={markerIcon}
           />
         )
       })}
