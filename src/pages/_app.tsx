@@ -16,7 +16,7 @@ const App = ({ Component, pageProps }: AppProps) => (
     <Head>
       <meta
         name="google-site-verification"
-        content="s1Etz-c0jOLpNUro9SsCCFjgxAedIFi0VB7Ol0j9yaA"
+        content="09fIGqbUb33gygeDtIwWFwBHVcJERHt5KcLlSY0B9Ac"
       />
       {generateDefaultSeo(DEFAULT_SEO)}
     </Head>
