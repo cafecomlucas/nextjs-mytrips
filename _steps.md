@@ -1914,6 +1914,24 @@ Obs: o Google Analytics atualmente já analisa vários recursos automaticamente,
 
 [react-ga](https://github.com/react-ga/react-ga).
 
+---
+
+## Métricas | Configurando o Search Console
+
+Para mais informações de indexação da página foi configurado o Google Search Console (antigo Web Master), que permite o envio de sitemaps, a inspeção de urls específicas, verificar a performance das pesquisas, checar a usabilidade mobile, se a página foi "crawleada", screenshots, possíveis erros, etc.
+
+A configuração foi feita verificando a propriedade através do site principal, que oferece duas opções do tipo de propriedade: por "Domain" (via DNS, mais abrangente, engloba todos subdomínios) e por "URL Prefix" (via código ou DNS, mais específico, pra subdomínios específicos). 
+
+Foi selecionada a opção "URL Prefix" e dentre as opções de verificação da propriedade foi selecionada a verificação via Meta Tag, que foi copiada.
+
+No projeto a meta tag foi colada no arquivo `_app.tsx`.
+
+Com a configuração feita e o arquivo modificado no ar foi possível verificar a instalação pelo site Google Search Console.
+
+[Google Search Console - Site Principal](https://search.google.com/search-console/)
+
+[Search Console - Verificação via Meta Tag](https://support.google.com/webmasters/answer/9008080#meta_tag_verification&zippy=%2Chtml-tag)
+
 
 ---
 

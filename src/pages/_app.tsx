@@ -13,7 +13,13 @@ const cache = createCache({ key: 'next' })
 const App = ({ Component, pageProps }: AppProps) => (
   <CacheProvider value={cache}>
     {globalStyles}
-    <Head>{generateDefaultSeo(DEFAULT_SEO)}</Head>
+    <Head>
+      <meta
+        name="google-site-verification"
+        content="s1Etz-c0jOLpNUro9SsCCFjgxAedIFi0VB7Ol0j9yaA"
+      />
+      {generateDefaultSeo(DEFAULT_SEO)}
+    </Head>
     <NextNProgress
       color="#74B1DE"
       startPosition={0.3}
