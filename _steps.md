@@ -1928,10 +1928,50 @@ No projeto a meta tag foi colada no arquivo `_app.tsx`.
 
 Com a configuração feita e o arquivo modificado no ar foi possível verificar a instalação pelo site Google Search Console.
 
+### Refs:
+
 [Google Search Console - Site Principal](https://search.google.com/search-console/)
 
 [Search Console - Verificação via Meta Tag](https://support.google.com/webmasters/answer/9008080#meta_tag_verification&zippy=%2Chtml-tag)
 
+
+---
+
+## Indexação | Geração de Site Map estático
+
+O sitemap é um arquivo que melhora/acelera o processo de indexação, aumentando o ranking do site nos buscadores (Google, Bing, etc).
+
+Para facilitar a geração do sitemap foi utilizado um plugin chamado [next-sitemap](https://github.com/iamvishnusankar/next-sitemap), que permite gerar o sitemap de forma estática ou dinâmica e com suporte a TypeScript. Pra esse ponto da aplicação, o sitemap vai ser gerado de forma estática.
+
+### Instalação
+
+Foi instalada como dependência normal (e não de desenvolvimento) pois depois será feita a modificação pra gerar o sitemap dinâmicamente.
+
+```sh
+yarn add next-sitemap
+```
+
+### Configuração
+
+Foi criado o arquivo `next-sitemap.config.js` na raiz do projeto com as configurações da url principal e se o robots.txt deve ser gerado.
+
+No `package.json` foi adicionada o script `postbuild`, que executa o `next-sitemap` logo após a execução do `build`.
+
+### Geração do Site Map estático
+
+Ao executar o comando `yarn build`, o comando pós build (`next-sitemap`) é executado em seguida, gerando o arquivo `sitemap.xml` e `robots.txt` na pasta `public`.
+
+No XML do sitemap, foi gerado os caminhos (urls) da página home (`/`), da página sobre (`/about`) e apenas uma única página interna de um local (`/place/paraty-rio-janeiro`) devido ao limite definido em `place/[slug].tsx` no método `getStaticPaths`.
+
+### Subindo o Site Map para o Search Console
+
+Com o Site Map gerado, foi possível configurá-lo no [Google Search Console](https://search.google.com/u/3/search-console/sitemaps).
+
+### Refs:
+
+[next-sitemap](https://github.com/iamvishnusankar/next-sitemap)
+
+[Google Search Console - Site Maps](https://search.google.com/u/3/search-console/sitemaps)
 
 ---
 
