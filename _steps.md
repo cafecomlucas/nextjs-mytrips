@@ -879,7 +879,7 @@ No arquivo `templates/About/index.tsx` foram adicionadas as novas props `heading
 
 No arquivo `pages/about.tsx` é utilizado um recurso do Next para obter as props do banco de dados em tempo de compilação dos estáticos, ou seja, quando os estáticos são gerados no servidor (SSG) com o comando `next build` as páginas estáticas já são geradas com os dados do banco.
 
-Para gerar as props é utilizado o método `getStaticProps`, que ao ser declarado é reconhecido automaticamente pelo Next e executa antes do componente da página (antes com o nome `About`, agora alterado pra `AboutPage`). Esse método ocorre em tempo de compilação/buildtime (SSR).
+Para gerar as props é utilizado o método `getStaticProps`, que ao ser declarado é reconhecido automaticamente pelo Next e executa antes do componente da página (antes com o nome `About`, agora alterado pra `AboutPage`). Esse método ocorre em tempo de compilação/buildtime (SSG).
 
 Dentro do `getStaticProps` é criado um `client` do Apollo, que faz a query pro GraphQL do HyGraph, obtendo o `heading` e o `body`, que são retornados em um objeto dentro da prop "props".
 
@@ -1974,6 +1974,38 @@ Com o Site Map gerado, foi possível configurá-lo no [Google Search Console](ht
 [Google Search Console - Site Maps](https://search.google.com/u/3/search-console/sitemaps)
 
 ---
+
+## Indexação | Geração de Site Map dinâmico
+
+Para geração do Site Map dinâmico as modificações anteriores foram deletadas (xmls da pasta public, configs do next-sitemap).
+
+O `sitemap.xml` é uma página que pode ser acessada como qualquer outra, então isso foi criada a pasta `pages/sitemap.xml` e dentro dela o arquivo `index.tsx`, onde a geração é feita no servidor quando a página é requisitada. Como esta é uma página de pouco acesso, faz sentido gerá-la no servidor.
+
+Para gerar o XML é necessário acessar os dados no lado do servidor a cada requisição via props, e utilizar esses dados pra gerar o XML com a estrutura correta.
+
+As props são obtidas dentro do (antigo) método `getServerSideProps`, que ao ser declarado é reconhecido automaticamente pelo Next e executa a cada requisição. Esse método ocorre em tempo de execução/runtime (SSR).
+
+No método `getServerSideProps` é feita uma requisição via Apollo client para obter os slugs dos lugares (com uma query já existente GET_PLACES), pra composição das URLs dinâmicas e guardar em no array `fields`. Em seguida as URLs estáticas são adicionadas manualmente ao array.
+
+Com as props obtidas, o XML é gerado através do método `getServerSideSitemapLegacy` do `next-sitemap`, retornando o resultado do método `getServerSideProps`.
+
+Com o novo Site Map gerado, foi possível configurá-lo no [Google Search Console](https://search.google.com/u/3/search-console/sitemaps) - melhorando a indexação e o ranking do site nos sites de busca.
+
+Obs 01: para melhorar o código e ter acesso ao IntelliSense, a constante de arrays `field` foi tipada através da interface `ISitemapField[]` do `next-sitemap`.
+
+Obs 02: Na doc do `next-sitemap` mostra como criar o sitemap com o estático e com o dinâmico ao mesmo tempo (com o arquivo de config), o que não foi necessário neste projeto.
+
+### Refs:
+
+[Server Side Props - NextJS Docs](https://nextjs.org/docs/pages/api-reference/functions/get-server-side-props)
+
+[Server Side Site Map - next-sitemap Docs](https://github.com/iamvishnusankar/next-sitemap?tab=readme-ov-file#server-side-sitemap-getserversidesitemap)
+
+[Google Search Console - Site Maps](https://search.google.com/u/3/search-console/sitemaps)
+
+
+---
+
 
 ## Refs adicionais:
 
